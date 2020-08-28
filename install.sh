@@ -59,7 +59,7 @@ APPVERSION="$(curl -LSs $REPORAW/master/version.txt)"
 # Setup plugins
 
 PLUGNAMES="oh-my-fish"
-PLUGDIR="${SHARE:-$HOME/.local/share}"
+PLUGDIR="${SHARE:-$HOME/.local/share}/$APPNAME"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
