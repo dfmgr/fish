@@ -23,3 +23,4 @@ https://github.com/h-matsuo/fish-color-scheme-switcher"
 fish -c "fonts install --powerline Inconsolata"
 
 fish -c "omf update"
+exit 0
