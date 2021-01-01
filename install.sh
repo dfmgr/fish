@@ -161,9 +161,9 @@ if [ "$PLUGNAMES" != "" ]; then
       "Updating plugin oh-my-fish"
   else
     execute \
-      "rm -Rf $PLUGDIR/oh-my-fish \
-      curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > $APPDIR/omf-install \
-      fish $APPDIR/omf-install --noninteractive --yes \
+      "rm -Rf $PLUGDIR/oh-my-fish && \
+      curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > $APPDIR/omf-install && \
+      fish $APPDIR/omf-install --noninteractive --yes && \
       fish -c $APPDIR/plugins.fish" \
       "Installing plugin oh-my-fish"
   fi
