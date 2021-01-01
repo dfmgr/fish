@@ -139,12 +139,12 @@ ensure_perms
 
 if [ -d "$APPDIR/.git" ]; then
   execute \
-  "git_update $APPDIR" \
-  "Updating $APPNAME configurations"
+    "git_update $APPDIR" \
+    "Updating $APPNAME configurations"
 else
   execute \
-  "backupapp && git_clone -q $REPO/$APPNAME $APPDIR" \
-  "Installing $APPNAME configurations"
+    "backupapp && git_clone -q $REPO/$APPNAME $APPDIR" \
+    "Installing $APPNAME configurations"
 fi
 
 # exit on fail
@@ -157,15 +157,15 @@ failexitcode
 if [ "$PLUGNAMES" != "" ]; then
   if [ -d "$PLUGDIR"/oh-my-fish/.git ]; then
     execute \
-    "git_update $PLUGDIR/oh-my-fish" \
-    "Updating plugin oh-my-fish"
+      "git_update $PLUGDIR/oh-my-fish" \
+      "Updating plugin oh-my-fish"
   else
     execute \
-    "rm -Rf $PLUGDIR/oh-my-fish \
-    curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/omf-install \
-    fish /tmp/omf-install --noninteractive --yes \
-    fish -c $APPDIR/plugins.fish" \
-    "Installing plugin oh-my-fish"
+      "rm -Rf $PLUGDIR/oh-my-fish \
+      curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > $APPDIR/omf-install \
+      fish $APPDIR/omf-install --noninteractive --yes \
+      fish -c $APPDIR/plugins.fish" \
+      "Installing plugin oh-my-fish"
   fi
 fi
 
@@ -182,8 +182,8 @@ run_postinst() {
 }
 
 execute \
-"run_postinst" \
-"Running post install scripts"
+  "run_postinst" \
+  "Running post install scripts"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
