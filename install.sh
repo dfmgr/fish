@@ -163,7 +163,7 @@ if [ "$PLUGNAMES" != "" ]; then
     execute \
     "rm -Rf $PLUGDIR/oh-my-fish \
     curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/omf-install \
-    fish -c /tmp/omf-install --noninteractive --yes \
+    fish /tmp/omf-install --noninteractive --yes \
     fish -c $APPDIR/plugins.fish" \
     "Installing plugin oh-my-fish"
   fi
