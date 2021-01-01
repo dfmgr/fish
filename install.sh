@@ -163,8 +163,7 @@ if [ "$PLUGNAMES" != "" ]; then
   else
     execute \
     "rm -Rf $PLUGDIR/oh-my-fish \
-    curl -LSsq https://get.oh-my.fish -o $APPDIR/omf-install \
-    fish $APPDIR/omf-install --path=$PLUGDIR --config=$APPDIR/omf --noninteractive --yes \
+    curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish \
     fish -c $APPDIR/plugins.fish" \
     "Installing plugin oh-my-fish"
   fi
@@ -179,11 +178,8 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
-  curl -LSsq https://get.oh-my.fish -o "$APPDIR/omf-install"
-  if [ ! -d "$PLUGDIR" ] && [ ! -f "$APPDIR/omf-install" ]; then
-    fish $APPDIR/omf-install --path="$PLUGDIR" --config="$APPDIR/omf" --noninteractive --yes
-    fish -c "$APPDIR/plugins.fish"
-  fi
+  curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
+  fish -c "$APPDIR/plugins.fish"
 }
 
 execute \
