@@ -154,6 +154,7 @@ failexitcode
 
 # Plugins
 
+if __am_i_online; then
 if [ "$PLUGNAMES" != "" ]; then
   if [ -d "$PLUGDIR"/oh-my-fish/.git ]; then
     execute \
@@ -167,6 +168,7 @@ if [ "$PLUGNAMES" != "" ]; then
       fish -c $APPDIR/plugins.fish" \
       "Installing plugin oh-my-fish"
   fi
+fi
 fi
 
 # exit on fail
