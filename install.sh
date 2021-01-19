@@ -155,20 +155,20 @@ failexitcode
 # Plugins
 
 if __am_i_online; then
-if [ "$PLUGNAMES" != "" ]; then
-  if [ -d "$PLUGDIR"/oh-my-fish/.git ]; then
-    execute \
-      "git_update $PLUGDIR/oh-my-fish" \
-      "Updating plugin oh-my-fish"
-  else
-    execute \
-      "rm -Rf $PLUGDIR/oh-my-fish && \
+  if [ "$PLUGNAMES" != "" ]; then
+    if [ -d "$PLUGDIR"/oh-my-fish/.git ]; then
+      execute \
+        "git_update $PLUGDIR/oh-my-fish" \
+        "Updating plugin oh-my-fish"
+    else
+      execute \
+        "rm -Rf $PLUGDIR/oh-my-fish && \
       curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > $APPDIR/omf-install && \
       fish $APPDIR/omf-install --noninteractive --yes && \
       fish -c $APPDIR/plugins.fish" \
-      "Installing plugin oh-my-fish"
+        "Installing plugin oh-my-fish"
+    fi
   fi
-fi
 fi
 
 # exit on fail
@@ -180,7 +180,7 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
-  __am_i_online && fish -c "$DOWNLOADED_TO/plugins.fish"
+  ! __am_i_online || fish -c "$DOWNLOADED_TO/plugins.fish"
 }
 
 execute \
