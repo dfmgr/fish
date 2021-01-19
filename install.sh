@@ -178,7 +178,7 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
-  fish -c "$DOWNLOADED_TO/plugins.fish"
+  __am_i_online && fish -c "$DOWNLOADED_TO/plugins.fish"
 }
 
 execute \
