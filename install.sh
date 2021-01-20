@@ -137,13 +137,17 @@ ensure_perms
 
 # Main progam
 
+if [ -d "$APPDIR" ]; then
+  execute "backupapp $APPDIR $APPNAME" "Backing up $APPDIR"
+fi
+
 if [ -d "$DOWNLOADED_TO/.git" ]; then
   execute \
     "git_update $DOWNLOADED_TO" \
     "Updating $APPNAME configurations"
 else
   execute \
-    "backupapp && git_clone -q $REPO/$APPNAME $DOWNLOADED_TO" \
+    "git_clone -q $REPO/$APPNAME $DOWNLOADED_TO" \
     "Installing $APPNAME configurations"
 fi
 
@@ -169,10 +173,10 @@ if __am_i_online; then
         "Installing plugin oh-my-fish"
     fi
   fi
-fi
 
-# exit on fail
-failexitcode
+  # exit on fail
+  failexitcode
+fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -180,7 +184,7 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
-  ! __am_i_online || fish -c "$DOWNLOADED_TO/plugins.fish"
+  if __am_i_online; then fish -c "$APPDIR/plugins.fish"; fi
 }
 
 execute \
