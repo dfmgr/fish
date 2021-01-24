@@ -18,15 +18,15 @@ end
 
 # Useful functions {{{
 function fish_greeting
-    #  echo "I'm completely operational, and all my circuits are functioning perfectly."
+    echo "I'm completely operational, and all my circuits are functioning perfectly."
 end
 
 # }}}
-# Abbreviations {{{
+# functions / profile / Abbreviations {{{
 
-if test -f "$HOME/.config/fish/profile/00-aliases.fish"
-    . "$HOME/.config/fish/profile/00-aliases.fish"
-end
+source "$HOME/.config/fish/profile"/*.fish
+source "$HOME/.config/fish/functions"/*.fish
+source "$HOME/.config/fish/alias/"*.fish
 
 # }}}
 # Completions {{{
@@ -101,7 +101,7 @@ set -g -x GOPATH "$HOME/.go"
 # }}}
 # Z {{{
 
-. ~/.config/fish/z.fish
+source "$HOME/.config/fish/z.fish"
 
 # }}}
 
@@ -120,9 +120,9 @@ set -g theme_display_vagrant yes
 set -g theme_display_docker_machine yes
 set -g theme_display_k8s_context yes
 set -g theme_display_hg yes
-#set -g theme_display_virtualenv yes
+set -g theme_display_virtualenv yes
 set -g theme_display_ruby yes
-#set -g theme_display_nvm yes
+set -g theme_display_nvm yes
 set -g theme_display_user yes
 set -g theme_display_hostname yes
 set -g theme_display_vi yes
@@ -150,15 +150,15 @@ set -U SXHKD_SHELL sh
 
 # local {{{
 if test -f "$HOME/.config/local/fish.local"
-    . "$HOME/.config/local/fish.local"
+    source "$HOME/.config/local/fish.local"
 end
 
 if test -f "$HOME/.config/local/fish.servers.local"
-    . "$HOME/.config/local/fish.servers.local"
+    source "$HOME/.config/local/fish.servers.local"
 end
 
 if test -f "$HOME/.config/local/fish.(hostname -s).local"
-    . "$HOME/.config/local/fish.(hostname -s).local"
+    source "$HOME/.config/local/fish.(hostname -s).local"
 end
 # }}}
 

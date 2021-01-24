@@ -1,17 +1,39 @@
 # Useful functions {{{
 
-function ef; vim ~/.config/fish/config.fish; end
-function ew; vim (which $argv[1]); end
-function cw; cat (which $argv[1]); end
-function gw; gist (which $argv[1]); end
-function eff; vim ~/.config/fish/functions; end
-function eg; vim ~/.gitconfig; end
-function ev; vim ~/.vimrc; end
+function ef
+    vim ~/.config/fish/config.fish
+end
+function ew
+    vim (which $argv[1])
+end
+function cw
+    cat (which $argv[1])
+end
+function gw
+    gist (which $argv[1])
+end
+function eff
+    vim ~/.config/fish/functions
+end
+function eg
+    vim ~/.gitconfig
+end
+function ev
+    vim ~/.vimrc
+end
 
-function ..;    cd ..; end
-function ...;   cd ../..; end
-function ....;  cd ../../..; end
-function .....; cd ../../../..; end
+function ..
+    cd ..
+end
+function ...
+    cd ../..
+end
+function ....
+    cd ../../..
+end
+function .....
+    cd ../../../..
+end
 
 # I give up
 alias :q exit
@@ -89,12 +111,12 @@ set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 set -g -x GPG_TTY (tty)
 
 # Less Colors for Man Pages
-set -g -x LESS_TERMCAP_mb (printf '\e[01;31m')       # begin blinking
-set -g -x LESS_TERMCAP_md (printf '\e[01;38;5;74m')  # begin bold
-set -g -x LESS_TERMCAP_me (printf '\e[0m')           # end mode
-set -g -x LESS_TERMCAP_se (printf '\e[0m')           # end standout-mode
-set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m')    # begin standout-mode - info box
-set -g -x LESS_TERMCAP_ue (printf '\e[0m')           # end underline
+set -g -x LESS_TERMCAP_mb (printf '\e[01;31m') # begin blinking
+set -g -x LESS_TERMCAP_md (printf '\e[01;38;5;74m') # begin bold
+set -g -x LESS_TERMCAP_me (printf '\e[0m') # end mode
+set -g -x LESS_TERMCAP_se (printf '\e[0m') # end standout-mode
+set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m') # begin standout-mode - info box
+set -g -x LESS_TERMCAP_ue (printf '\e[0m') # end underline
 set -g -x LESS_TERMCAP_us (printf '\e[04;38;5;146m') # begin underline
 
 # }}}
@@ -112,7 +134,7 @@ set -g -x GOPATH "$HOME/.go"
 # }}}
 # Z {{{
 
-. ~/.config/fish/z.fish
+source ~/.config/fish/z.fish
 
 # }}}
 # Prompt {{{
@@ -195,7 +217,7 @@ end
 # }}}
 # Local {{{
 if test -f $HOME/fish.local
-    . $HOME/fish.local
+    source $HOME/fish.local
 end
 # }}}
 
