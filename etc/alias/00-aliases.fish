@@ -10,6 +10,7 @@ alias cd..="cd .." #cd fix
 alias q="exit" #vim
 alias :q="exit" #vim
 alias :q!="exit" #vim
+alias :w="history -a"
 alias c="clear" #clear screen
 alias e="/usr/bin/vim --" #
 alias g="git" #git
