@@ -7,7 +7,6 @@ end
 function nvm_find_nvmrc
     bass source "$NVM_DIR/nvm.sh" --no-use ';' nvm_find_nvmrc
 end
-
 # ~/.config/fish/functions/load_nvm.fish
 function load_nvm --on-variable="PWD"
     set -l default_node_version (nvm version default)
@@ -25,7 +24,5 @@ function load_nvm --on-variable="PWD"
         nvm use default
     end
 end
-
-# ~/.config/fish/config.fish
 # You must call it on initialization or listening to directory switching won't work
 load_nvm

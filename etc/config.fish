@@ -7,7 +7,6 @@
 #end
 
 # create dirs
-
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/nvm"
 mkdir -p "$HOME/.local/log"
@@ -15,22 +14,17 @@ mkdir -p "$HOME/.local/log"
 if test -f "$HOME/.sudo"
     rm -Rf "$HOME/.sudo"
 end
-
 # Useful functions {{{
 function fish_greeting
     echo "I'm completely operational, and all my circuits are functioning perfectly."
 end
-
 # }}}
 # functions / profile / Abbreviations {{{
-
 source "$HOME/.config/fish/profile"/*.fish
 source "$HOME/.config/fish/functions"/*.fish
 source "$HOME/.config/fish/alias/"*.fish
-
 # }}}
 # Completions {{{
-
 function make_completion --argument alias command
     complete -c $alias -xa "(
         set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
@@ -61,7 +55,6 @@ function fish_user_key_bindings
 end
 
 # Environment variables {{{
-
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
     if test -d $argv[1]
         if not contains $argv[1] $PATH
@@ -78,7 +71,6 @@ set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 set -g -x _JAVA_OPTIONS "-Djava.awt.headless=true"
 set -g -x NVM_DIR "$HOME/.local/share/nvm"
 set -g -x NVM_BIN "$HOME/.local/bin"
-
 set -g -x GPG_TTY (tty)
 
 # Less Colors for Man Pages
@@ -163,3 +155,4 @@ end
 # }}}
 
 true
+

@@ -1,5 +1,4 @@
 #!/usr/bin/env fish
-
 # Ensure oh-my-fish is installed
 if test ! am_i_online
     if test ! -f "$HOME/.config/fish/omf-install" && test ! -d "$HOME/.local/share/fish/oh-my-fish"
@@ -20,9 +19,8 @@ foreign-env \
 https://github.com/edc/bass \
 https://github.com/jhillyerd/plugin-git \
 https://github.com/h-matsuo/fish-color-scheme-switcher"
-
     fish -c "fonts install --powerline Inconsolata"
-
     fish -c "omf update"
     exit 0
 end
+
