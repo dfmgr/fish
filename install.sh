@@ -131,6 +131,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Plugins
 oh_my_fish() {
+  [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
   curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install >"$APPDIR/omf-install"
   fish "$APPDIR/omf-install" --noninteractive --yes && fish -c "$APPDIR/plugins.fish" || return 1
