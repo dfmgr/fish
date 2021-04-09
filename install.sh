@@ -132,8 +132,9 @@ fi
 # Plugins
 oh_my_fish() {
   rm -Rf "$PLUGDIR/oh-my-fish"
-  curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install >"$APPDIR/omf-install"
-  fish "$APPDIR/omf-install" --noninteractive --yes && fish -c "$APPDIR/plugins.fish" || return 1
+  curl -q -LSs https://get.oh-my.fish >"$APPDIR/omf-install"
+  fish --path="$PLUGDIR/oh-my-fish" "$APPDIR/omf-install" --noninteractive --yes && \
+    fish -c "$APPDIR/plugins.fish" || return 1
 }
 if __am_i_online; then
   if [ "$PLUGNAMES" != "" ]; then
