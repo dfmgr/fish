@@ -134,7 +134,7 @@ oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
   curl -q -LSs https://get.oh-my.fish >"$APPDIR/omf-install"
-  fish --path="$PLUGDIR/oh-my-fish" "$APPDIR/omf-install" --noninteractive --yes && \
+  fish "$APPDIR/omf-install" --path="$PLUGDIR/oh-my-fish" --noninteractive --yes && \
     fish -c "$APPDIR/plugins.fish" || return 1
 }
 if __am_i_online; then
