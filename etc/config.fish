@@ -20,7 +20,6 @@ function fish_greeting
 end
 # }}}
 # functions / profile / Abbreviations {{{
-source "$HOME/.config/fish/profile"/*.fish
 source "$HOME/.config/fish/functions"/*.fish
 source "$HOME/.config/fish/alias/"*.fish
 # }}}
@@ -118,7 +117,7 @@ set -g theme_display_nvm yes
 set -g theme_display_user yes
 set -g theme_display_hostname yes
 set -g theme_display_vi yes
-set -g theme_display_date yes
+set -g theme_display_date no
 set -g theme_display_cmd_duration yes
 set -g theme_title_display_process yes
 set -g theme_title_display_path yes
@@ -134,11 +133,14 @@ set -g default_user your_normal_user
 set -g theme_color_scheme dark
 set -g fish_prompt_pwd_dir_length 0
 set -g theme_project_dir_length 0
-set -g theme_newline_cursor no
+set -g theme_newline_cursor yes
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
 
 # sxhkd fix
 set -U SXHKD_SHELL sh
+
+# profile
+source "$HOME/.config/fish/profile"/*.fish
 
 # local {{{
 if test -f "$HOME/.config/local/fish.local"

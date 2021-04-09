@@ -69,7 +69,7 @@ function fish_prompt
         printf ' ><((°> 🐧 '
     else
         set_color red -o
-        printf ' ><(([%d]>  🐧 ' $last_status
+        printf '><(([e]>  🐧 '
     end
 
     set_color normal
