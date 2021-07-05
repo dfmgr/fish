@@ -53,7 +53,7 @@ alias vis="/usr/bin/vim +set si" #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #Set neovim
-alias nvim="/usr/bin/nvim -u $HOME/.config/neovim/init.vim"
+alias nvim='nvim -u $HOME/.config/nvim/init.vim' 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Lock screen.
