@@ -5,7 +5,7 @@ fish is a smart and user-friendly command line shell
 Automatic install/update:
 
 ```shell
-bash -c "$(curl -LSs https://github.com/dfmgr/fish/raw/master/install.sh)"
+bash -c "$(curl -LSs https://github.com/dfmgr/fish/raw/main/install.sh)"
 ```
 
 Manual install:
