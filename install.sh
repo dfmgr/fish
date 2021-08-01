@@ -146,12 +146,11 @@ oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
   if __am_i_online; then
-    if [ ! -d "$PLUGDIR/oh-my-fish" ]; then
-      [ -d "$PLUGDIR/inst" ] ||
-        fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive
+    if [ ! -d "$PLUGDIR/oh-my-fish" ] && [ -d "$PLUGDIR/inst" ]; then
+      fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive
       rm -Rf "$PLUGDIR/inst"
     fi
-    [ ! -d "$PLUGDIR/oh-my-fish" ] || fish -c "$APPDIR/plugins.fish" || false
+    [ -d "$PLUGDIR/oh-my-fish" ] || fish -c "$APPDIR/plugins.fish" || false
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
