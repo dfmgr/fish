@@ -1,3 +1,3 @@
 function serve-this -d "Launch a webserver on 8000 serving the cwd"
-    python -m SimpleHTTPServer
+    run_server $argv
 end
