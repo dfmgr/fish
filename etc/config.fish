@@ -1,11 +1,12 @@
 #!/usr/bin/env fish
-#
 # Ensure oh-my-fish is installed
-#if test ! -d ~/.local/share/fish/oh-my-fish/.git
-#    #    curl -LSsq https://get.oh-my.fish > ~/.config/fish/omf-install
-#    fish ~/.config/fish/omf-install --path=~/.local/share/fish/oh-my-fish \
-#        --config=~/.config/fish/omf --noninteractive --yes
-#end
+# if am_i_online
+#     if test ! -d "$HOME/.local/share/fish/oh-my-fish"
+#         curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
+#         fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
+#         fish -c "$HOME/.config/fish/plugins.fish"
+#     end
+# end
 
 # create dirs
 mkdir -p "$HOME/.local/bin"
@@ -19,7 +20,13 @@ end
 # functions / profile / Abbreviations {{{
 source "$HOME/.config/fish/functions"/*.fish
 source "$HOME/.config/fish/alias/"*.fish
+source "$HOME/.config/fish/profile"/*.fish
 # }}}
+
+# Z {{{
+source "$HOME/.config/fish/z.fish"
+# }}}
+
 # Completions {{{
 function make_completion --argument alias command
     complete -c $alias -xa "(
@@ -32,9 +39,9 @@ complete -c s -w ssh
 complete -c cw -w which
 complete -c ew -w which
 complete -c gw -w which
+# }}}
 
 # Bind Keys {{{
-
 # Backwards compatibility?  Screw that, it's more important that our function
 # names have underscores so they look pretty.
 function jesus_fucking_christ_bind_the_fucking_keys_fish
@@ -49,6 +56,7 @@ end
 function fish_user_key_bindings
     jesus_fucking_christ_bind_the_fucking_keys_fish
 end
+# }}}
 
 # Environment variables {{{
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
@@ -59,7 +67,7 @@ function prepend_to_path -d "Prepend the given dir to PATH if it exists and is n
     end
 end
 
-set -g -x EDITOR vim
+set -g -x EDITOR myeditor
 set -g -x COMMAND_MODE unix2003
 set -g -x RUBYOPT rubygems
 set -g -x PAGER 'less -X'
@@ -77,23 +85,10 @@ set -g -x LESS_TERMCAP_se (printf '\e[0m') # end standout-mode
 set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m') # begin standout-mode - info box
 set -g -x LESS_TERMCAP_ue (printf '\e[0m') # end underline
 set -g -x LESS_TERMCAP_us (printf '\e[04;38;5;146m') # begin underline
-
 # }}}
 
 # Go {{{
-
 set -g -x GOPATH "$HOME/.go"
-
-# }}}
-
-# profile
-source "$HOME/.config/fish/profile"/*.fish
-
-# }}}
-# Z {{{
-
-source "$HOME/.config/fish/z.fish"
-
 # }}}
 
 # Theme {{{
@@ -129,16 +124,16 @@ set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 set -g theme_show_exit_status no
 set -g theme_display_jobs_verbose no
-#set -g default_user your_normal_user
-set -g theme_color_scheme dracula
-set -g fish_prompt_pwd_dir_length 0
+# set -g theme_color_scheme dracula
+# set -g fish_prompt_pwd_dir_length 0
 set -g theme_project_dir_length 0
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
 # }}}
 
-# sxhkd fix
+# sxhkd fix {{{
 set -U SXHKD_SHELL sh
+# }}}
 
 # local {{{
 if test -f "$HOME/.config/local/fish.local"
