@@ -15,11 +15,7 @@ mkdir -p "$HOME/.local/log"
 if test -f "$HOME/.sudo"
     rm -Rf "$HOME/.sudo"
 end
-# Useful functions {{{
-function fish_greeting
-    echo "I'm completely operational, and all my circuits are functioning perfectly."
-end
-# }}}
+
 # functions / profile / Abbreviations {{{
 source "$HOME/.config/fish/functions"/*.fish
 source "$HOME/.config/fish/alias/"*.fish
@@ -90,6 +86,9 @@ set -g -x GOPATH "$HOME/.go"
 
 # }}}
 
+# profile
+source "$HOME/.config/fish/profile"/*.fish
+
 # }}}
 # Z {{{
 
@@ -130,31 +129,25 @@ set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 set -g theme_show_exit_status no
 set -g theme_display_jobs_verbose no
-set -g default_user your_normal_user
-set -g theme_color_scheme dark
+#set -g default_user your_normal_user
+set -g theme_color_scheme dracula
 set -g fish_prompt_pwd_dir_length 0
 set -g theme_project_dir_length 0
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
+# }}}
 
 # sxhkd fix
 set -U SXHKD_SHELL sh
-
-# profile
-source "$HOME/.config/fish/profile"/*.fish
 
 # local {{{
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
 end
-
 if test -f "$HOME/.config/local/fish.servers.local"
     source "$HOME/.config/local/fish.servers.local"
 end
-
 if test -f "$HOME/.config/local/fish.(hostname -s).local"
     source "$HOME/.config/local/fish.(hostname -s).local"
 end
 # }}}
-
-true

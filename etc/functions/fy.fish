@@ -1,5 +1,5 @@
 function fy
-     echo -n '         / \
+    echo -n '         / \
         |\_/|
         |---|
         |   |
@@ -16,5 +16,5 @@ function fy
    \             /
     \           /
      |         |
-    ' | pbcopy
+    '
 end

@@ -6,4 +6,3 @@ function pj -d "Prettify JSON"
         python -m json.tool | pygmentize -l json
     end
 end
-
