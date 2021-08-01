@@ -135,7 +135,7 @@ if __am_i_online; then
     if [ -d "$PLUGDIR/oh-my-fish/.git" ]; then
       execute "git_update $PLUGDIR/oh-my-fish" "Updating plugin oh-my-fish"
     else
-      execute "git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/oh-my-fish" "Installing plugin oh-my-fish"
+      execute "[ -d $PLUGDIR/inst ] || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst" "Installing plugin oh-my-fish"
     fi
   fi
   # exit on fail
@@ -145,9 +145,12 @@ fi
 oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
-  if [ ! -d "$HOME/.config/omf" ] && __am_i_online; then
-    fish "$PLUGDIR/oh-my-fish/bin/install" --offline --config="$HOME/.config/omf" --noninteractive &&
-      fish -c "$APPDIR/plugins.fish" || false
+  if __am_i_online; then
+    if [ ! -d "$PLUGDIR/oh-my-fish" ] && [ -d "$PLUGDIR/inst" ]; then
+      fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive
+      rm -Rf "$PLUGDIR/inst"
+    fi
+    [ ! -d "$PLUGDIR/oh-my-fish" ] || fish -c "$APPDIR/plugins.fish" || false
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
