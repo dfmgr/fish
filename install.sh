@@ -130,28 +130,31 @@ if __am_i_online; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Plugins
-oh_my_fish() {
-  [ -d "$APPDIR" ] || mkd "$APPDIR"
-  rm -Rf "$PLUGDIR/oh-my-fish"
-  curl -q -LSs https://get.oh-my.fish >"$APPDIR/omf-install"
-  fish "$APPDIR/omf-install" --path="$PLUGDIR/oh-my-fish" --config=~/.config/omf --noninteractive --yes || return 1
-}
 if __am_i_online; then
   if [ "$PLUGNAMES" != "" ]; then
     if [ -d "$PLUGDIR/oh-my-fish/.git" ]; then
       execute "git_update $PLUGDIR/oh-my-fish" "Updating plugin oh-my-fish"
     else
-      execute "oh_my_fish" "Installing plugin oh-my-fish"
+      execute "git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/oh-my-fish" "Installing plugin oh-my-fish"
     fi
   fi
   # exit on fail
   failexitcode $? "Git has failed"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+oh_my_fish() {
+  [ -d "$APPDIR" ] || mkd "$APPDIR"
+  rm -Rf "$PLUGDIR/oh-my-fish"
+  if [ ! -d "$HOME/.config/omf" ] && __am_i_online; then
+    fish "$PLUGDIR/oh-my-fish/bin/install" --offline --config="$HOME/.config/omf" --noninteractive &&
+      fish -c "$APPDIR/plugins.fish" || false
+  fi
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # run post install scripts
 run_postinst() {
   dfmgr_run_post
-  __am_i_online && fish -c "$APPDIR/plugins.fish"
+  oh_my_fish
 }
 #
 execute "run_postinst" "Running post install scripts"
