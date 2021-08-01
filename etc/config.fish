@@ -1,11 +1,11 @@
 #!/usr/bin/env fish
 # Ensure oh-my-fish is installed
 # if am_i_online
-#     if test ! -d "$HOME/.local/share/fish/oh-my-fish"
-#         curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
-#         fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
-#         fish -c "$HOME/.config/fish/plugins.fish"
-#     end
+# if test ! -d "$HOME/.local/share/fish/oh-my-fish"
+#     curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
+#     fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
+#     fish -c "$HOME/.config/fish/plugins.fish"
+# end
 # end
 
 # create dirs
@@ -18,9 +18,18 @@ if test -f "$HOME/.sudo"
 end
 
 # functions / profile / Abbreviations {{{
-source "$HOME/.config/fish/functions"/*.fish
-source "$HOME/.config/fish/alias/"*.fish
-source "$HOME/.config/fish/profile"/*.fish
+if test -d "$HOME/.config/fish/functions"
+    source "$HOME/.config/fish/functions"/*.fish
+end
+if test -d "$HOME/.config/fish/alias"
+    source "$HOME/.config/fish/alias"/*.fish
+end
+if test -d "$HOME/.config/fish/profile"
+    source "$HOME/.config/fish/profile"/*.fish
+end
+if test -d "$HOME/.config/fish/completions"
+    source "$HOME/.config/fish/completions"/*.fish
+end
 # }}}
 
 # Z {{{
@@ -124,8 +133,8 @@ set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 set -g theme_show_exit_status no
 set -g theme_display_jobs_verbose no
-# set -g theme_color_scheme dracula
-# set -g fish_prompt_pwd_dir_length 0
+set -g theme_color_scheme dracula
+set -g fish_prompt_pwd_dir_length 0
 set -g theme_project_dir_length 0
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt ' ><((°>)) 🐧 '

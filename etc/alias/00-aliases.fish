@@ -41,26 +41,19 @@ alias ssh="ssh -X" #ssh with display
 alias userlist="cut -d: -f1 /etc/passwd" #list system users
 alias mutt="neomutt" #neomutt email
 alias lynx="lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.lss"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #Set vim as default
 alias vi="/usr/bin/vim" #vim
 alias vim="/usr/bin/vim" #vim
 alias svi="sudo /usr/bin/vim" #start vim with sudo
 alias vis="/usr/bin/vim +set si" #
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #Set neovim
 alias nvim='nvim -u $HOME/.config/nvim/init.vim'
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Lock screen.
 alias afk="gnome-screensaver-command --lock" #lock screen
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #youtube-dl
 alias nightcorea="youtube-dl --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 320k --config-location $HOME/.config/youtube-dl/nightcorea "
 alias nightcorev="youtube-dl -f bestvideo+bestaudio --config-location $HOME/.config/youtube-dl/nightcorev "
@@ -76,43 +69,28 @@ alias yta-wav="youtube-dl --extract-audio --audio-format wav --config-location $
 alias ytda="youtube-dl -f bestaudio  --extract-audio --audio-format mp3 --config-location $HOME/.config/youtube-dl/music "
 alias ytdv="youtube-dl -f bestvideo+bestaudio --config-location $HOME/.config/youtube-dl/videos "
 alias ytstream="ytstream "
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 # Empty trash.
 alias empty-trash="rm -rf ~/.local/share/Trash/files/*" #Delete old files
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 # Hide/Show desktop icons.
 alias desktop-icons-hide="gsettings set org.gnome.desktop.background show-desktop-icons false"
 alias desktop-icons-show="gsettings set org.gnome.desktop.background show-desktop-icons true"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 # Open from the terminal.
 alias o="xdg-open"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 # netstat aliases
 alias ports="sudo netstat -taupln | grep LISTEN"
 alias netstat="sudo netstat"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #Andriod adb/fastboot
 alias fastboot="sudo fastboot"
 alias adb="sudo adb"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #Fun alias
 alias tw="rainbowstream -iot"
 alias twitter="twitter"
 alias mylatlong="mylocation | grep -E 'LAT|LON'"
 alias emj="emojis"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# vi: ts=2 noai

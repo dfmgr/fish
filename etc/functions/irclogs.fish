@@ -1,5 +1,9 @@
 function irclogs -d "Open the IRC logs dir in vim"
-    cd ~/.weechat/logs/
-    vim .
-    cd -
+    if test -d ~/.weechat/logs/
+        cd ~/.weechat/logs/
+        vim .
+        cd -
+    else
+        echo "weechat log dir doesn't exist"
+    end
 end
