@@ -134,7 +134,7 @@ oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
   curl -q -LSs https://get.oh-my.fish >"$APPDIR/omf-install"
-  fish "$APPDIR/omf-install" --path="$PLUGDIR/oh-my-fish" --noninteractive --yes || return 1
+  fish "$APPDIR/omf-install" --path="$PLUGDIR/oh-my-fish" --config=~/.config/omf --noninteractive --yes || return 1
 }
 if __am_i_online; then
   if [ "$PLUGNAMES" != "" ]; then
@@ -162,4 +162,3 @@ dfmgr_install_version
 # exit
 run_exit
 # end
-

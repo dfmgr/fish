@@ -13,7 +13,7 @@ $green<status|modified|unknown><update>$normal\
 " 2>/dev/null
 
 function virtualenv_prompt
-    if [ -n "$VIRTUAL_ENV"  ]
+    if [ -n "$VIRTUAL_ENV" ]
         printf '(%s) ' (basename "$VIRTUAL_ENV")
     end
 end

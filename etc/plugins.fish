@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # Ensure oh-my-fish is installed
-if test ! am_i_online
+if am_i_online
     if test ! -f "$HOME/.config/fish/omf-install" && test ! -d "$HOME/.local/share/fish/oh-my-fish"
         curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
         fish "$HOME/.config/fish/omf-install" --noninteractive --yes
@@ -23,4 +23,3 @@ https://github.com/h-matsuo/fish-color-scheme-switcher"
     fish -c "omf update"
     exit 0
 end
-
