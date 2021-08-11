@@ -145,13 +145,13 @@ fi
 oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   if am_i_online; then
-    [[ -d "$HOME/.config/omf/bundle" && -d "$PLUGDIR/oh-my-fish" ]] || rm -Rf "$PLUGDIR/oh-my-fish"
+    [[ -d "$HOME/.config/omf/bundle" ]] || rm -Rf "$PLUGDIR/oh-my-fish"
     if [ ! -d "$PLUGDIR/oh-my-fish" ] && [ ! "$HOME/.config/omf/bundle" ] && [ -d "$PLUGDIR/inst" ]; then
       fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes &&
         rm -Rf "$PLUGDIR/inst" &&
         echo 'Failed to setup oh-my-fish' >&2 && false
     fi
-    [[ -d "$PLUGDIR/oh-my-fish" && -f "$APPDIR/plugins.fish" ]] && fish -c "$APPDIR/plugins.fish" || false
+    [[ -d "$PLUGDIR/oh-my-fish" ]] && fish -c "$APPDIR/plugins.fish" 2>&1 || false
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
