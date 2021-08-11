@@ -150,7 +150,7 @@ oh_my_fish() {
       fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes &&
         rm -Rf "$PLUGDIR/inst" && echo 'Failed to setup oh-my-fish' >&2 && false
     fi
-    [[ -d "$PLUGDIR/oh-my-fish" ]] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || false
+    [[ -d "$PLUGDIR/oh-my-fish" ]] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" 2>&1
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
