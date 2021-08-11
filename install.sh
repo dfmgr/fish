@@ -135,7 +135,7 @@ if am_i_online; then
     if [ -d "$PLUGDIR/oh-my-fish/.git" ]; then
       execute "git_update $PLUGDIR/oh-my-fish" "Updating plugin oh-my-fish"
     else
-      execute "[ -d $PLUGDIR/inst ] || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst" "Installing plugin oh-my-fish"
+      execute "[ -d $PLUGDIR/inst ] && true || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst" "Installing plugin oh-my-fish"
     fi
   fi
   # exit on fail
@@ -145,11 +145,9 @@ fi
 oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   if am_i_online; then
-    if [ ! -d "$PLUGDIR/oh-my-fish" ] && [ ! -e "$HOME/.config/omf/bundle" ]; then
-      [[ -e "$PLUGDIR/oh-my-fish" ]] && [ -e "$HOME/.config/omf/bundle" ] || rm -Rf "$HOME/.config/omf" "$PLUGDIR/oh-my-fish"
+    if [ ! -d "$PLUGDIR/oh-my-fish" ]; then
       fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes &&
-        rm -Rf "$PLUGDIR/inst" && echo 'Failed to setup oh-my-fish' >&2 && false
-      [[ -d "$PLUGDIR/oh-my-fish" ]] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" 2>&1 || true
+        if [[ -d "$PLUGDIR/oh-my-fish" ]] && [ -f "$APPDIR/plugins.fish" ]; then fish -c "$APPDIR/plugins.fish"; fi || echo "oh my fish install failed"
     fi
   fi
 }
