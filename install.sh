@@ -119,7 +119,7 @@ if [ -d "$APPDIR" ]; then
   execute "backupapp $APPDIR $APPNAME" "Backing up $APPDIR"
 fi
 # Main progam
-if __am_i_online; then
+if am_i_online; then
   if [ -d "$INSTDIR/.git" ]; then
     execute "git_update $INSTDIR" "Updating $APPNAME configurations"
   else
@@ -130,7 +130,7 @@ if __am_i_online; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Plugins
-if __am_i_online; then
+if am_i_online; then
   if [ "$PLUGNAMES" != "" ]; then
     if [ -d "$PLUGDIR/oh-my-fish/.git" ]; then
       execute "git_update $PLUGDIR/oh-my-fish" "Updating plugin oh-my-fish"
@@ -145,7 +145,7 @@ fi
 oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   rm -Rf "$PLUGDIR/oh-my-fish"
-  if __am_i_online; then
+  if am_i_online; then
     if [ ! -d "$PLUGDIR/oh-my-fish" ] && [ -d "$PLUGDIR/inst" ]; then
       fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes &&
         rm -Rf "$PLUGDIR/inst" &&
