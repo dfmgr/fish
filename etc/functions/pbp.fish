@@ -1,3 +1,3 @@
-function pbp -d "pbpaste"
-    xsel --clipboard
+function pbp -d pbpaste
+    clipboard print
 end

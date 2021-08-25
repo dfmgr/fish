@@ -1,5 +1,5 @@
 function pj -d "Prettify JSON"
-    if test "$argv[1]" = "-C"
+    if test "$argv[1]" = -C
         # no color
         python -m json.tool
     else

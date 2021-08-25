@@ -1,3 +1,7 @@
 function upper -d "uppercase input"
-    gsed -e 's/./\U\0/g' $argv
+    if cmd_exists gsed
+        gsed -e 's/./\U\0/g' $argv
+    else
+        sed -e 's/./\U\0/g' $argv
+    end
 end

@@ -32,9 +32,9 @@ if test -d "$HOME/.config/fish/completions"
 end
 # }}}
 
-# Z 
+# Z
 # source "$HOME/.config/fish/z.fish"
-# 
+#
 
 # Completions {{{
 function make_completion --argument alias command

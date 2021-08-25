@@ -1,3 +1,3 @@
-function pbc -d "pbcopy"
-    xsel --clipboard --input
+function pbc -d pbcopy
+    clipboard
 end

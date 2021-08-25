@@ -45,8 +45,8 @@ function fisher --argument-names cmd --description "A plugin manager for Fish"
                 for plugin in $new_plugins
                     if contains -- "$plugin" $old_plugins
                         test "$cmd" = remove &&
-                        set --append remove_plugins $plugin ||
-                        set --append update_plugins $plugin
+                            set --append remove_plugins $plugin ||
+                            set --append update_plugins $plugin
                     else if test "$cmd" = install
                         set --append install_plugins $plugin
                     else
@@ -56,8 +56,8 @@ function fisher --argument-names cmd --description "A plugin manager for Fish"
             else
                 for plugin in $new_plugins
                     contains -- "$plugin" $old_plugins &&
-                    set --append update_plugins $plugin ||
-                    set --append install_plugins $plugin
+                        set --append update_plugins $plugin ||
+                        set --append install_plugins $plugin
                 end
 
                 for plugin in $old_plugins
@@ -182,8 +182,8 @@ function fisher --argument-names cmd --description "A plugin manager for Fish"
 
             set --query _fisher_plugins[1] || set --erase _fisher_plugins
             set --query _fisher_plugins &&
-            printf "%s\n" $_fisher_plugins >$fish_plugins ||
-            command rm -f $fish_plugins
+                printf "%s\n" $_fisher_plugins >$fish_plugins ||
+                command rm -f $fish_plugins
 
             set --local total (count $install_plugins) (count $update_plugins) (count $remove_plugins)
             test "$total" != "0 0 0" && echo (string join ", " (

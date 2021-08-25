@@ -9,6 +9,6 @@ function oh-my-fish -d 'Oh my fish setup'
     if cmd_exists omf
         omf $argv
     else
-        printf "\t\tOhMyFish doesn't seem to be installed"
+        printf "\t\tOhMyFish doesn't seem to be installed\n"
     end
 end
