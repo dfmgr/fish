@@ -6,3 +6,5 @@ oh-my-fish
 omf
 omf-install
 plugins
+# ignore commit message
+.gitcommit
