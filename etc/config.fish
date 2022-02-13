@@ -141,6 +141,11 @@ set -g theme_newline_prompt ' ><((°>)) 🐧 '
 set -U SXHKD_SHELL sh
 # }}}
 
+# cursor fix {{{
+echo -e -n "\x1b[\x35 q" 2>/dev/null
+echo -e -n "\e]12;cyan\a" 2>/dev/null
+# }}}
+
 # local {{{
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
