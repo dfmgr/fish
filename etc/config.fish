@@ -1,17 +1,36 @@
 #!/usr/bin/env fish
 # Ensure oh-my-fish is installed
-# if am_i_online
-# if test ! -d "$HOME/.local/share/fish/oh-my-fish"
-#     curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
-#     fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
-#     fish -c "$HOME/.config/fish/plugins.fish"
-# end
-# end
+if am_i_online
+    if test ! -d "$HOME/.local/share/fish/oh-my-fish"
+        curl -LSs https://get.oh-my.fish >"$HOME/.config/fish/omf-install"
+        fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
+        fish -c "$HOME/.config/fish/plugins.fish"
+    end
+end
+
+# set env
+function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
+    if test -d $argv[1]
+        if not contains $argv[1] $PATH
+            set -gx PATH "$argv[1]" $PATH
+        end
+    end
+end
+set -g -x GPG_TTY (tty)
+set -g -x PAGER 'less -X'
+set -g -x EDITOR myeditor
+set -g -x RUBYOPT rubygems
+set -g -x COMMAND_MODE unix2003
+set -g -x NVM_BIN "$HOME/.local/bin"
+set -g -x GOPATH "$HOME/.local/share/go"
+set -g -x NVM_DIR "$HOME/.local/share/nodejs/nvm"
+set -g -x JAVA_OPTIONS "-Djava.awt.headless=true"
+set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 
 # create dirs
-mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.local/share/nvm"
 mkdir -p "$HOME/.local/log"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.local/share/nodejs/nvm"
 
 if test -f "$HOME/.sudo"
     rm -Rf "$HOME/.sudo"
@@ -65,26 +84,6 @@ end
 function fish_user_key_bindings
     jesus_fucking_christ_bind_the_fucking_keys_fish
 end
-# }}}
-
-# Environment variables {{{
-function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
-    if test -d $argv[1]
-        if not contains $argv[1] $PATH
-            set -gx PATH "$argv[1]" $PATH
-        end
-    end
-end
-
-set -g -x EDITOR myeditor
-set -g -x COMMAND_MODE unix2003
-set -g -x RUBYOPT rubygems
-set -g -x PAGER 'less -X'
-set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
-set -g -x _JAVA_OPTIONS "-Djava.awt.headless=true"
-set -g -x NVM_DIR "$HOME/.local/share/nvm"
-set -g -x NVM_BIN "$HOME/.local/bin"
-set -g -x GPG_TTY (tty)
 
 # Less Colors for Man Pages
 set -g -x LESS_TERMCAP_mb (printf '\e[01;31m') # begin blinking
@@ -94,13 +93,7 @@ set -g -x LESS_TERMCAP_se (printf '\e[0m') # end standout-mode
 set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m') # begin standout-mode - info box
 set -g -x LESS_TERMCAP_ue (printf '\e[0m') # end underline
 set -g -x LESS_TERMCAP_us (printf '\e[04;38;5;146m') # begin underline
-# }}}
 
-# Go {{{
-set -g -x GOPATH "$HOME/.go"
-# }}}
-
-# Theme {{{
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 set -g theme_display_git yes
 set -g theme_display_git_dirty yes
@@ -135,18 +128,12 @@ set -g theme_title_use_abbreviated_path no
 set -g theme_date_format "+%H:%M"
 set -g theme_project_dir_length 0
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
-# }}}
 
-# sxhkd fix {{{
 set -U SXHKD_SHELL sh
-# }}}
 
-# cursor fix {{{
 echo -e -n "\x1b[\x35 q" 2>/dev/null
 echo -e -n "\e]12;cyan\a" 2>/dev/null
-# }}}
 
-# local {{{
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
 end

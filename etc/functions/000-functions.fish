@@ -24,49 +24,49 @@
 #     printf '%b' "(tput setaf "$argv[2]" 2>/dev/null)" "$argv[1]" "(tput sgr0 2>/dev/null)"
 # end
 # function printf_normal
-#     printf_color "\t\t$argv[1]\n" "0"
+#     printf_color "$argv[1]\n" "0"
 # end
 # function printf_green
-#     printf_color "\t\t$argv[1]\n" 2
+#     printf_color "$argv[1]\n" 2
 # end
 # function printf_red
-#     printf_color "\t\t$argv[1]\n" 1
+#     printf_color "$argv[1]\n" 1
 # end
 # function printf_purple
-#     printf_color "\t\t$argv[1]\n" 5
+#     printf_color "$argv[1]\n" 5
 # end
 # function printf_yellow
-#     printf_color "\t\t$argv[1]\n" 3
+#     printf_color "$argv[1]\n" 3
 # end
 # function printf_blue
-#     printf_color "\t\t$argv[1]\n" 4
+#     printf_color "$argv[1]\n" 4
 # end
 # function printf_cyan()
-#     { printf_color "\t\t$argv[1]\n" 6
+#     { printf_color "$argv[1]\n" 6
 #   end
 #  function   printf_info
-#   printf_color "\t\t$ICON_INFO $argv[1]\n" 3
+#   printf_color "$ICON_INFO $argv[1]\n" 3
 #   end
 #  function   printf_success
-#   printf_color "\t\t$ICON_GOOD $argv[1]\n" 2
+#   printf_color "$ICON_GOOD $argv[1]\n" 2
 #   end
 #  function   printf_error
-#   printf_color "\t\t$ICON_ERROR $argv[1] $argv[2]\n" 1
+#   printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
 #   end
 #   function  printf_warning
-#     printf_color "\t\t$ICON_WARN $argv[1]\n" 3
+#     printf_color "$ICON_WARN $argv[1]\n" 3
 #     end
 #   function  printf_question
-#  printf_color "\t\t$ICON_QUESTION $argv[1] " 6
+#  printf_color "$ICON_QUESTION $argv[1] " 6
 #   end
 #   function  printf_error_stream
 #  while read -r line; do printf_error "↳ ERROR: $line"; done
 #   end
 #   function  printf_execute_success
-#  printf_color "\t\t$ICON_ERROR $argv[1]  \n" 2
+#  printf_color "$ICON_ERROR $argv[1]  \n" 2
 #     end
 #  function   printf_execute_error
-#  printf_color "\t\t$ICON_ERROR $argv[1] $argv[2] \n" 1
+#  printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
 # end
 # function    printf_execute_error_stream
 
@@ -77,7 +77,7 @@
 #     test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
 #     set set -l msg "$argv[]"
 #     shift
-#     printf_color "\t\t$msg" "$color"
+#     printf_color "$msg" "$color"
 #     echo ""
 #     return 0
 # end
@@ -88,7 +88,7 @@
 #   set -l msg "$argv[*]"
 #   shift
 #   echo ""
-#   printf_color "\t\t$msg\n" "$color"
+#   printf_color "$msg\n" "$color"
 #   echo ""
 #   return 0
 # end
@@ -97,7 +97,7 @@
 
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
 #   set -l msg "${*:-Press any key to continue}"
-#   printf_color "\t\t$msg " "$color"
+#   printf_color "$msg " "$color"
 #   read -r -n 1 -s
 #   printf "\n"
 # end
@@ -107,7 +107,7 @@
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
 #   set -l msg "$argv[*]"
 #   shift
-#   printf_color "\t\t$msg" "$color"
+#   printf_color "$msg" "$color"
 #   echo ""
 # end
 
@@ -116,7 +116,7 @@
 #   set -o pipefail
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
 #   while read line; do
-#     printf_color "\t\t$line" "$color"
+#     printf_color "$line" "$color"
 #   done
 #   printf "\n"
 #   set +o pipefail
@@ -127,7 +127,7 @@
 #   set -o pipefail
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
 #   while read line; do
-#     printf_color "\t\t$line\n" "$color"
+#     printf_color "$line\n" "$color"
 #   done
 #   set +o pipefail
 # end
@@ -137,7 +137,7 @@
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "4"
 #   set -l msg "$argv[*]"
 #   shift
-#   printf_color "\t\t$ICON_QUESTION $msg? " "$color"
+#   printf_color "$ICON_QUESTION $msg? " "$color"
 # end
 
 #  function   printf_custom_question
@@ -145,7 +145,7 @@
 #   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
 #   set -l msg "$argv[*]"
 #   shift
-#   printf_color "\t\t$msg " "$color"
+#   printf_color "$msg " "$color"
 # end
 
 #  function   printf_answer
@@ -161,7 +161,7 @@
 #   set -l msg "$argv[1..-1]"
 #   set -l lines "${1:-120}" && shift 1
 #   set -l reply "${1:-$__ANSWER}" && shift 1
-#   printf_color "\t\t$msg " "$color"
+#   printf_color "$msg " "$color"
 #   printf_answer "$reply" "$lines"
 # end
 
@@ -180,14 +180,14 @@
 #   set -l msg6 "$argv[1..-1]" || msg6=
 #   set -l msg7 "$argv[1..-1]" || msg7=
 #   shift
-#   [ -z "$msg1" ] || printf_color "\t\t##################################################\n" "$color"
-#   [ -z "$msg1" ] || printf_color "\t\t$msg1\n" "$color"
-#   [ -z "$msg2" ] || printf_color "\t\t$msg2\n" "$color"
-#   [ -z "$msg3" ] || printf_color "\t\t$msg3\n" "$color"
-#   [ -z "$msg4" ] || printf_color "\t\t$msg4\n" "$color"
-#   [ -z "$msg5" ] || printf_color "\t\t$msg5\n" "$color"
-#   [ -z "$msg6" ] || printf_color "\t\t$msg6\n" "$color"
-#   [ -z "$msg7" ] || printf_color "\t\t$msg7\n" "$color"
-#   [ -z "$msg1" ] || printf_color "\t\t##################################################\n" "$color"
+#   [ -z "$msg1" ] || printf_color "##################################################\n" "$color"
+#   [ -z "$msg1" ] || printf_color "$msg1\n" "$color"
+#   [ -z "$msg2" ] || printf_color "$msg2\n" "$color"
+#   [ -z "$msg3" ] || printf_color "$msg3\n" "$color"
+#   [ -z "$msg4" ] || printf_color "$msg4\n" "$color"
+#   [ -z "$msg5" ] || printf_color "$msg5\n" "$color"
+#   [ -z "$msg6" ] || printf_color "$msg6\n" "$color"
+#   [ -z "$msg7" ] || printf_color "$msg7\n" "$color"
+#   [ -z "$msg1" ] || printf_color "##################################################\n" "$color"
 # }
 # end
