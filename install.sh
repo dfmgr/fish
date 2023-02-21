@@ -39,6 +39,8 @@ else
   exit 1
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+__oh-my-fish-tmp() { [ -d $PLUGDIR/inst ] || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst; }
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Call the main function
 user_installdirs
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -135,7 +137,7 @@ if am_i_online; then
     if [ -d "$PLUGDIR/oh-my-fish/.git" ]; then
       execute "git_update $PLUGDIR/oh-my-fish" "Updating plugin oh-my-fish"
     else
-      execute "[ -d $PLUGDIR/inst ] && true || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst" "Installing plugin oh-my-fish"
+      execute "__oh-my-fish-tmp" "Installing plugin oh-my-fish"
     fi
   fi
   # exit on fail
@@ -145,10 +147,10 @@ fi
 oh_my_fish() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   if am_i_online; then
-    [[ -d "$HOME/.config/omf" ]] && __mv_f "$HOME/.config/omf" "$HOME/.config/omf.bak" || true
-    [[ -d "$PLUGDIR/oh-my-fish" ]] || fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
-    [ -d "$HOME/.config/omf" ] || [[ -d "$HOME/.config/omf.bak" ]] || __cp_rf "$HOME/.config/omf.bak" "$HOME/.config/omf"
-    [[ -d "$PLUGDIR/oh-my-fish" ]] && [[ -f "$APPDIR/plugins.fish" ]] && fish -c "$APPDIR/plugins.fish" || echo "oh my fish install failed"
+    [ -d "$HOME/.config/omf" ] && __mv_f "$HOME/.config/omf" "$HOME/.config/omf.bak"
+    [ -f "$PLUGDIR/inst/bin/install" ] && [ ! -d "$PLUGDIR/oh-my-fish" ] && fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >&2
+    [ ! -d "$HOME/.config/omf" ] && [ -d "$HOME/.config/omf.bak" ] && __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
+    [ -d "$PLUGDIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || echo "oh-my-fish install failed" >&2
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
