@@ -61,15 +61,14 @@ run_pre_install() {
 __oh_my_fish_tmp() { [ -d $PLUGDIR/inst ] || git_clone https://github.com/oh-my-fish/oh-my-fish $PLUGDIR/inst; }
 __oh_my_fish_setup() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
-  [ ! -d "$HOME/.config/omf" ] || mv -f "$HOME/.config/omf" "$HOME/.config/omf.bak"
+  [ -d "$HOME/.config/omf" ] && mv -f "$HOME/.config/omf" "$HOME/.config/omf.bak"
   if [ -f "$PLUGDIR/inst/bin/install" ] && [ ! -d "$PLUGDIR/oh-my-fish" ]; then
-    echo fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >/tmp/omf.tmp
-    #fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >&2 || return 1
+    fish "$PLUGDIR/inst/bin/install" --offline --path="$PLUGDIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >&2 || return 1
   fi
-  #if [ ! -d "$HOME/.config/omf" ] && [ -d "$HOME/.config/omf.bak" ]; then
-  #  __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
-  #fi
-  #[ -d "$PLUGDIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || echo "oh-my-fish install failed" >&2
+  if [ ! -d "$HOME/.config/omf" ] && [ -d "$HOME/.config/omf.bak" ]; then
+    __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
+  fi
+  [ -d "$PLUGDIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || echo "oh-my-fish install failed" >&2
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Call the main function

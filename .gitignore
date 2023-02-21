@@ -92,8 +92,8 @@ $RECYCLE.BIN/
 **/.no_git
 
 # oh-my-fish
-conf.d
-oh-my-fish
 omf
-omf-install
+conf.d
 plugins
+oh-my-fish
+omf-install
