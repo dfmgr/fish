@@ -1,8 +1,8 @@
 #!/usr/bin/env fish
 # Ensure oh-my-fish is installed
-# if test ! -d "$HOME/.local/share/fish/oh-my-fish"
+# if test ! -d "$HOME/.local/share/fish/plugins/oh-my-fish"
 #     curl -LSs "https://get.oh-my.fish" >"$HOME/.config/fish/omf-install"
-#     fish "$HOME/.config/fish/omf-install --offline --path=$HOME/.local/share/fish/oh-my-fish --config=$HOME/.config/omf --noninteractive --yes"
+#     fish "$HOME/.config/fish/omf-install --offline --path=$HOME/.local/share/fish/plugins/oh-my-fish --config=$HOME/.config/omf --noninteractive --yes"
 #     fish -c "$HOME/.config/fish/plugins.fish"
 # end
 

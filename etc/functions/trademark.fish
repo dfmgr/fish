@@ -1,5 +1,5 @@
 function trademark -d "show trademark"
-    if cmd_exists pbcopy
+    if cmd_exists clipboard
         echo -n ™ | clipboard
     else if cmd_exists pbcopy
         echo -n ™ | pbcopy

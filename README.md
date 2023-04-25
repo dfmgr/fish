@@ -39,7 +39,7 @@ brew install fish
 ```shell
 mv -fv "$HOME/.config/fish" "$HOME/.config/fish.bak"
 git clone https://github.com/dfmgr/fish "$HOME/.config/fish"
-fish "$HOME"/.config/fish/omf-install --path=~/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes
+fish "$HOME"/.config/fish/omf-install --path=~/.local/share/fish/plugins/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes
 fish "$HOME"/.config/fish/plugins.fish
 rm -Rf "$HOME"/.config/fish/omf-install
 ```
