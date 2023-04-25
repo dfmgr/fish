@@ -1,9 +1,9 @@
 function pbcopy -d 'setup clipboard'
-    if cmd_exists clipboard
+    if __cmd_exists -q clipboard
         cat - | clipboard
-    else if cmd_exists pbcopy
+    else if __cmd_exists -q pbcopy
         cat - | pbcopy
-    else if cmd_exists xclip
+    else if __cmd_exists -q xclip
         cat - | xclip
     else
         cat -

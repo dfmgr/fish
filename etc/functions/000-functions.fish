@@ -1,193 +1,146 @@
-# #!/usr/bin/env fish
-# # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# ##@Version       : 202103251632-git
-# # @Author        : Jason Hempstead
-# # @Contact       : jason@casjaysdev.com
-# # @License       : LICENSE.md
-# # @ReadME        : 00-functions.bash --help
-# # @Copyright     : Copyright: (c) 2021 Jason Hempstead, CasjaysDev
-# # @Created       : Thursday, Mar 25, 2021 16:41 EDT
-# # @File          : 00-functions.bash
-# # @Description   :
-# # @TODO          :
-# # @Other         :
-# # @Resource      :
-# # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# # Icons
-# set -g ICON_INFO "[ ℹ️ ]"
-# set -g ICON_GOOD "[ ✔ ]"
-# set -g ICON_WARN "[ ❗ ]"
-# set -g ICON_ERROR "[ ✖ ]"
-# set -g ICON_QUESTION "[ ❓ ]"
-# # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# function printf_color
-#     printf '%b' "(tput setaf "$argv[2]" 2>/dev/null)" "$argv[1]" "(tput sgr0 2>/dev/null)"
-# end
-# function printf_normal
-#     printf_color "$argv[1]\n" "0"
-# end
-# function printf_green
-#     printf_color "$argv[1]\n" 2
-# end
-# function printf_red
-#     printf_color "$argv[1]\n" 1
-# end
-# function printf_purple
-#     printf_color "$argv[1]\n" 5
-# end
-# function printf_yellow
-#     printf_color "$argv[1]\n" 3
-# end
-# function printf_blue
-#     printf_color "$argv[1]\n" 4
-# end
-# function printf_cyan()
-#     { printf_color "$argv[1]\n" 6
-#   end
-#  function   printf_info
-#   printf_color "$ICON_INFO $argv[1]\n" 3
-#   end
-#  function   printf_success
-#   printf_color "$ICON_GOOD $argv[1]\n" 2
-#   end
-#  function   printf_error
-#   printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
-#   end
-#   function  printf_warning
-#     printf_color "$ICON_WARN $argv[1]\n" 3
-#     end
-#   function  printf_question
-#  printf_color "$ICON_QUESTION $argv[1] " 6
-#   end
-#   function  printf_error_stream
-#  while read -r line; do printf_error "↳ ERROR: $line"; done
-#   end
-#   function  printf_execute_success
-#  printf_color "$ICON_ERROR $argv[1]  \n" 2
-#     end
-#  function   printf_execute_error
-#  printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
-# end
-# function    printf_execute_error_stream
+#!/usr/bin/env fish
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202304251902-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.com
+# @@License          :  LICENSE.md
+# @@ReadME           :  00-functions.fish --help
+# @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
+# @@Created          :  Tuesday, Apr 25, 2023 19:12 EDT
+# @@File             :  00-functions.fish
+# @@Description      :  Default fish functions
+# @@Changelog        :  newScript
+# @@TODO             :  Refactor code
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  bash/system
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function cmd_exists -d 'Check if command exists'
+    type $argv
+end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Icons
+set -g ICON_INFO "[ ℹ️ ]"
+set -g ICON_GOOD "[ ✔ ]"
+set -g ICON_WARN "[ ❗ ]"
+set -g ICON_ERROR "[ ✖ ]"
+set -g ICON_QUESTION "[ ❓ ]"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function printf_color
+  set color (tput setaf "$argv[2]" 2>/dev/null)
+  set reset (tput sgr0 2>/dev/null)
+    printf '%b%b%b' "$color" "$argv[1]" "$reset"
+end
 
-#   while read -r line; do printf_execute_error "↳ ERROR: $line"; done
-#     end
+function printf_normal
+    printf_color "$argv[1]\n" 0
+end
 
-# function printf_exit
-#     test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
-#     set set -l msg "$argv[]"
-#     shift
-#     printf_color "$msg" "$color"
-#     echo ""
-#     return 0
-# end
+function printf_green
+    printf_color "$argv[1]\n" 2
+end
 
-#  function   printf_help
+function printf_red
+    printf_color "$argv[1]\n" 1
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]"  || set -l color "4"
-#   set -l msg "$argv[*]"
-#   shift
-#   echo ""
-#   printf_color "$msg\n" "$color"
-#   echo ""
-#   return 0
-# end
+function printf_purple
+    printf_color "$argv[1]\n" 5
+end
 
-#  function   printf_pause
+function printf_yellow
+    printf_color "$argv[1]\n" 3
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
-#   set -l msg "${*:-Press any key to continue}"
-#   printf_color "$msg " "$color"
-#   read -r -n 1 -s
-#   printf "\n"
-# end
+function printf_blue
+    printf_color "$argv[1]\n" 4
+end
 
-#   function  printf_custom
+function printf_cyan
+    printf_color "$argv[1]\n" 6
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
-#   set -l msg "$argv[*]"
-#   shift
-#   printf_color "$msg" "$color"
-#   echo ""
-# end
+function printf_info
+  printf_color "$ICON_INFO $argv[1]\n" 3
+end
 
-#  function   printf_read
+function printf_success
+  printf_color "$ICON_GOOD $argv[1]\n" 2
+end
 
-#   set -o pipefail
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
-#   while read line; do
-#     printf_color "$line" "$color"
-#   done
-#   printf "\n"
-#   set +o pipefail
-# end
+function printf_error
+  printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
+end
 
-#  function   printf_readline
+function  printf_warning
+    printf_color "$ICON_WARN $argv[1]\n" 3
+end
 
-#   set -o pipefail
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
-#   while read line; do
-#     printf_color "$line\n" "$color"
-#   done
-#   set +o pipefail
-# end
+function printf_question
+  printf_color "$ICON_QUESTION $argv[1] " 6
+end
 
-#  function   printf_question
+function printf_error_stream
+  while read -r line; do printf_error "↳ ERROR: $line"; end
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "4"
-#   set -l msg "$argv[*]"
-#   shift
-#   printf_color "$ICON_QUESTION $msg? " "$color"
-# end
+function printf_execute_success
+  printf_color "$ICON_ERROR $argv[1]  \n" 2
+end
 
-#  function   printf_custom_question
+function printf_execute_error
+  printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
-#   set -l msg "$argv[*]"
-#   shift
-#   printf_color "$msg " "$color"
-# end
+function printf_execute_error_stream
+  while read -r line; do printf_execute_error "↳ ERROR: $line"; end
+end
 
-#  function   printf_answer
+function printf_exit
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
+  set -l msg "$argv"
+  printf_color "$msg" "$color"
+  echo ""
+  return 0
+end
 
-#   read -e -r -n "${2:-120}" -s "${1:-__ANSWER}"
-#   history -s "${1:-$__ANSWER}"
-# end
+function printf_help
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]"  || set -l color "4"
+  set -l msg "$argv"
+  echo ""
+  printf_color "$msg\n" "$color"
+  echo ""
+  return 0
+end
 
-#     #printf_read_question "color" "message" "maxLines" "answerVar"
-#  function   printf_read_question
+function printf_pause
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
+  set -l msg "$argv"
+  printf_color "$msg " "$color"
+  read -r -n 1 -s
+  printf "\n"
+end
 
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
-#   set -l msg "$argv[1..-1]"
-#   set -l lines "${1:-120}" && shift 1
-#   set -l reply "${1:-$__ANSWER}" && shift 1
-#   printf_color "$msg " "$color"
-#   printf_answer "$reply" "$lines"
-# end
+function printf_custom
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
+  set -l msg "$argv"
+  printf_color "$msg" "$color"
+  echo ""
+end
 
-#  function   printf_answer_yes
-#  [[ "${1:-$__ANSWER}" =~ ${2:-^[Yy]$} ]] && return 0 || return 1
-#   end
+function printf_read
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
+  while read line; do
+    printf_color "$line" "$color"
+  end
+  printf "\n"
+end
 
-#  function   printf_head
-
-#   test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
-#   set -l msg1 "$argv[1..-1]"
-#   set -l msg2 "$argv[1..-1]" || msg2=
-#   set -l msg3 "$argv[1..-1]" || msg3=
-#   set -l msg4 "$argv[1..-1]" || msg4=
-#   set -l msg5 "$argv[1..-1]" || msg5=
-#   set -l msg6 "$argv[1..-1]" || msg6=
-#   set -l msg7 "$argv[1..-1]" || msg7=
-#   shift
-#   [ -z "$msg1" ] || printf_color "##################################################\n" "$color"
-#   [ -z "$msg1" ] || printf_color "$msg1\n" "$color"
-#   [ -z "$msg2" ] || printf_color "$msg2\n" "$color"
-#   [ -z "$msg3" ] || printf_color "$msg3\n" "$color"
-#   [ -z "$msg4" ] || printf_color "$msg4\n" "$color"
-#   [ -z "$msg5" ] || printf_color "$msg5\n" "$color"
-#   [ -z "$msg6" ] || printf_color "$msg6\n" "$color"
-#   [ -z "$msg7" ] || printf_color "$msg7\n" "$color"
-#   [ -z "$msg1" ] || printf_color "##################################################\n" "$color"
-# }
-# end
+function printf_readline
+  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
+  while read line; do
+    printf_color "$line\n" "$color"
+  end
+end

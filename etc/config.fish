@@ -6,6 +6,11 @@
 #     fish -c "$HOME/.config/fish/plugins.fish"
 # end
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function __cmd_exists -d 'Check if command exists'
+    type $argv
+end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # set env
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
     if test -d $argv[1]
@@ -24,16 +29,16 @@ set -g -x GOPATH "$HOME/.local/share/go"
 set -g -x NVM_DIR "$HOME/.local/share/nodejs/nvm"
 set -g -x JAVA_OPTIONS "-Djava.awt.headless=true"
 set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # create dirs
 mkdir -p "$HOME/.local/log"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/nodejs/nvm"
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.sudo"
     rm -Rf "$HOME/.sudo"
 end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # functions / profile / Abbreviations {{{
 if test -d "$HOME/.config/fish/functions"
     source "$HOME/.config/fish/functions"/*.fish
@@ -48,11 +53,10 @@ if test -d "$HOME/.config/fish/completions"
     source "$HOME/.config/fish/completions"/*.fish
 end
 # }}}
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Z
 # source "$HOME/.config/fish/z.fish"
-#
-
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Completions {{{
 function make_completion --argument alias command
     complete -c $alias -xa "(
@@ -60,13 +64,13 @@ function make_completion --argument alias command
         complete -C\"$command \$cmd\";
     )"
 end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 complete -c s -w ssh
 complete -c cw -w which
 complete -c ew -w which
 complete -c gw -w which
 # }}}
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Bind Keys {{{
 # Backwards compatibility?  Screw that, it's more important that our function
 # names have underscores so they look pretty.
@@ -74,15 +78,15 @@ function jesus_fucking_christ_bind_the_fucking_keys_fish
     bind \cn accept-autosuggestion
     bind \cw backward-kill-word
 end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function fish_user_keybindings
     jesus_fucking_christ_bind_the_fucking_keys_fish
 end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function fish_user_key_bindings
     jesus_fucking_christ_bind_the_fucking_keys_fish
 end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Less Colors for Man Pages
 set -g -x LESS_TERMCAP_mb (printf '\e[01;31m') # begin blinking
 set -g -x LESS_TERMCAP_md (printf '\e[01;38;5;74m') # begin bold
@@ -91,7 +95,7 @@ set -g -x LESS_TERMCAP_se (printf '\e[0m') # end standout-mode
 set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m') # begin standout-mode - info box
 set -g -x LESS_TERMCAP_ue (printf '\e[0m') # end underline
 set -g -x LESS_TERMCAP_us (printf '\e[04;38;5;146m') # begin underline
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 set -g theme_display_git yes
 set -g theme_display_git_dirty yes
@@ -126,19 +130,18 @@ set -g theme_title_use_abbreviated_path no
 set -g theme_date_format "+%H:%M"
 set -g theme_project_dir_length 0
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
-
 set -U SXHKD_SHELL sh
-
 echo -e -n "\x1b[\x35 q" 2>/dev/null
 echo -e -n "\e]12;cyan\a" 2>/dev/null
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
 end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/local/fish.servers.local"
     source "$HOME/.config/local/fish.servers.local"
 end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/local/fish.(hostname -s).local"
     source "$HOME/.config/local/fish.(hostname -s).local"
 end
-# }}}

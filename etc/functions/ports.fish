@@ -1,7 +1,7 @@
 function ports -d "List processes listening on various ports"
-    if cmd_exists lsof
+    if __cmd_exists -q lsof
         sudo lsof -iTCP -sTCP:LISTEN -P -n
-    else if cmd_exists netstatl
+    else if __cmd_exists -q netstatl
         sudo netstatl
     end
 end

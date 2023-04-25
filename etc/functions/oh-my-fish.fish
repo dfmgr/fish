@@ -6,7 +6,7 @@ function oh-my-fish -d 'Oh my fish setup'
             fish -c "$HOME/.config/fish/plugins.fish"
         end
     end
-    if cmd_exists omf
+    if __cmd_exists -q omf
         omf $argv
     else
         printf "OhMyFish doesn't seem to be installed\n"
