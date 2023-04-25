@@ -143,20 +143,19 @@ __run_prepost_install() {
 __run_post_install() {
   [ -d "$APPDIR" ] || mkd "$APPDIR"
   [ -d "$HOME/.config/omf" ] && mv -f "$HOME/.config/omf" "$HOME/.config/omf.bak"
-  if [ -x "$PLUGIN_DIR/inst/bin/install" ] && [ ! -d "$PLUGIN_DIR/oh-my-fish" ]; then
+  if [ -f "$PLUGIN_DIR/inst/bin/install" ]; then
     fish "$PLUGIN_DIR/inst/bin/install" --offline --path="$PLUGIN_DIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >&2 || false
-    [ $? -eq 0 ] && { [ -d "$PLUGIN_DIR/inst" ] && rm_rf "$PLUGIN_DIR/inst"; } || return 1
+    [ $? -eq 0 ] && { [ -d "$PLUGIN_DIR/inst" ] && rm_rf "$PLUGIN_DIR/inst" || true; } || return 1
   fi
   if [ -d "$HOME/.config/omf.bak" ]; then
     if [ -d "$HOME/.config/omf" ]; then
       cp_rf "$HOME/.config/omf.bak/." "$HOME/.config/omf/"
-      rm_rf "$HOME/.config/omf"
+      rm_rf "$HOME/.config/omf.bak"
     else
       __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
     fi
   fi
   [ -d "$PLUGIN_DIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || echo "oh-my-fish install failed" >&2
-
   return ${?:-0}
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
