@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+case $! in
+user)
+  shift 1
+  echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$2|$3$4" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g'
+  ;;
+system)
+  shift 1
+
+  ;;
+esac
