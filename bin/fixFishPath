@@ -4,10 +4,15 @@ case "$1" in
 user)
   shift 1
   if [ -z "$FNM_MULTISHELL_PATH" ]; then
-    SET_USR_PATH="$(echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$USRBINDIR" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
+    TMP_BIN_PATH="${1:-$TMP_BIN_PATH}"
+    USRBINDIR="${2:-$USRBINDIR}"
+    SET_USR_PATH="$(echo "$TMP_BIN_PATH" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$USRBINDIR" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
     PATH="$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
   else
-    SET_USR_PATH="$(echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$2|$3$4" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
+    TMP_BIN_PATH="${1:-$TMP_BIN_PATH}"
+    USRBINDIR="${2:-$USRBINDIR}"
+    FNM_MULTISHELL_PATH="${3:-$FNM_MULTISHELL_PATH}"
+    SET_USR_PATH="$(echo "$TMP_BIN_PATH" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$USRBINDIR|$FNM_MULTISHELL_PATH" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
     PATH="$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
   fi
   ;;
@@ -17,4 +22,4 @@ system)
   ;;
 esac
 
-[ "$SHELL" = "fish" ] && echo "${PATH//:./}" || echo "export PATH=${PATH//:./}"
+echo "set -gx PATH $PATH"

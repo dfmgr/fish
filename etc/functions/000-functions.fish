@@ -147,5 +147,15 @@ end
 
 
 function add2path -d "Add folder to path"
-
+  if test -n "$argv[1]"
+    set -l dir "$(realpath "$argv[1]")"
+    if test -d "$dir" && ! echo "$PATH"| grep -qw "$dir"
+      printf '%b\n' "Added $dir to path"
+      set -gx PATH "$dir:$PATH"
+    else
+        printf '%b\n' "$dir is already in the path"
+    end
+  else
+    printf '%b\n' "Usage add2path [directory]"
+  end
 end
