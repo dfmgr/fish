@@ -123,12 +123,13 @@ set -gx PROFILERCSRC "$HOME/.profile"
 [ -d "$HOME/.config/local" ] || mkdir -p "$HOME/.config/local"
 [ -d "$HOME/.config/secure/inc" ] || mkdir -p "$HOME/.config/secure/inc"
 
-which kubectl >/dev/null 2>&1 && kubectl completion fish | source >/dev/null
-which fnm >/dev/null 2>&1 && fnm env --use-on-cd | source >/dev/null
-which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker
-which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH "(fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH")"
+which kubectl >/dev/null 2>&1 && kubectl completion fish | source || true
+which fnm >/dev/null 2>&1 && fnm env --use-on-cd --shell fish | source >/dev/null || true
+which fnm >/dev/null 2>&1 && fnm completions --shell fish | source >/dev/null || true
+which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker || true
+which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH "(fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH")" || true
 [ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
 [ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
 [ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "/run/docker/docker.sock" || set -gx DOCKER_SOCK "/run/docker.sock"
-set -gx PATH "$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+set -gx PATH "$SET_USR_PATH:."
 set -e -Ug SET_PATH SET_TMP_PATH TMP_BIN_PATH

@@ -1,96 +1,217 @@
-# CD Aliases
-alias ..="cd .." #cd fix
-alias ...="cd ../.." #cd fix
-alias ....="cd ../../.." #cd fix
-alias cd..="cd .." #cd fix
-
+#!/usr/bin/env sh
+# shellcheck shell=sh
+# shellcheck disable=SC2139
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+##@Version       : 202303022155-git
+# @Author        : Jason Hempstead
+# @Contact       : jason@casjaysdev.com
+# @License       : LICENSE.md
+# @ReadME        : README.md
+# @Copyright     : Copyright: (c) 2023 Jason Hempstead, CasjaysDev
+# @Created       : Thursday, Mar 02, 2023 21:54 EDT
+# @File          : 00-default.lin
+# @Description   :
+# @TODO          :
+# @Other         :
+# @Resource      :
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # System Aliases
-alias q="exit" #vim
-alias :q="exit" #vim
-alias :q!="exit" #vim
-alias :w="history -a"
-alias c="clear" #clear screen
-alias e="/usr/bin/vim --" #
-alias g="git" #git
-alias ll="ls -l" #ls list
-alias la="ls -A" #ls all
-alias m="man" #man page
-alias map="xargs -n1" #map
-alias n="npm" #npm
-alias t="tmux" #tmux
-alias tailf="tail -f" #tail follow
-alias ipconfig="ifconfig" #windows fix
-alias systemctl="sudo systemctl" #always sudo systemctl
-alias mount='mount -l' #mount lists
-alias h='history' #show history
-alias j='jobs -l' #list background jobs
-alias now='date +"%T"' #time now
-alias nowtime=now #alias for now
-alias nowdate='date +"%m-%d-%Y"' #todays date
-alias wget='wget -c' #wget continue
-alias df='df -H' #
-alias du='du -ch' #disk usuage
-alias docker='sudo docker' #start docker with sudo
-alias dockerrun='sudo docker run --rm --network host -it $1' #run temporary
-alias setver='date +"%m%d%Y%H%M-git"' #my versioning to console
-alias setverfile='date +"%m%d%Y%H%M-git" > version.txt' #my versioning to file
-alias dotfilesskel="cp -Rfa /etc/skel/. "$HOME"/ 2>/dev/null" #Update from /etc/skel
-alias ssh="ssh -X" #ssh with display
-alias userlist="cut -d: -f1 /etc/passwd" #list system users
-alias mutt="neomutt" #neomutt email
-alias lynx="lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.lss"
+alias q='exit '
+alias :q='exit '
+alias :q!='exit '
+alias :w='history -a '
+alias c='clear '
+alias ch='history -c &>/dev/null && history -w &>/dev/null '
+alias g='git '
+alias m='man '
+alias map='xargs -n1 '
+alias n='npm '
+alias t='tmux '
+alias tailf='tail -f '
+alias mount='mount -l '
+alias h='history '
+alias j='jobs -l '
+alias nowtime='date +"%T" '
+alias nowdate='date +"%m-%d-%Y" '
+alias wget='wget -c '
+alias df='df -H '
+alias du='du -ch '
+alias setverfile='setver --file '
+alias userlist='cut -d: -f1 /etc/passwd '
+alias muttsync='mailsync '
+alias mutt='neomutt '
+alias sort='LC_ALL=C sort '
+alias uniq='LC_ALL=C uniq '
+alias lynx='lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.lss '
+alias grep='grep --color=auto '
+alias egrep='grep -E --color=auto '
+alias fgrep='grep -F --color=auto '
+alias cp_rpf='cp --parents -Rfv '
+alias less='less -r '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#Set vim as default
-alias vi="/usr/bin/vim" #vim
-alias vim="/usr/bin/vim" #vim
-alias svi="sudo /usr/bin/vim" #start vim with sudo
-alias vis="/usr/bin/vim +set si" #
+# sudo commands
+alias sudo='\sudo -HE --preserve-env=PATH'
+alias svi='sudo vim '
+alias adb='sudo adb '
+alias npmg='sudo npm -g '
+alias netstat='sudo netstat '
+alias fastboot='sudo fastboot '
+alias ipconfig='sudo ifconfig '
+alias systemctl='sudo systemctl '
+alias ports='sudo netstat -taupln | grep --color=auto LISTEN '
+alias flushdns='sudo systemd-resolve --flush-caches '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# TMUX
+[ -f "$HOME/.config/tmux/singlerc.conf" ] && which tmux >/dev/null 2>&1 && alias tmux-single='tmux -f $HOME/.config/tmux/singlerc.conf new-session -D -A -s single ' || alias tmux-ssh='tmux '
+[ -f "$HOME/.config/tmux/tmux.ssh.conf" ] && which tmux >/dev/null 2>&1 && alias tmux-ssh='tmux -f $HOME/.config/tmux/tmux.ssh.conf new-session -D -A -s ssh ' || alias tmux-ssh='tmux '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# SCREEN
+[ -f "$HOME/.config/screen/dev/sshrc" ] && which screen >/dev/null 2>&1 && alias screen-ssh='\screen -c $HOME/.config/screen/dev/sshrc ' || alias screen-ssh='\screen -t ssh '
+[ -f "$HOME/.config/screen/dev/noderc" ] && which screen >/dev/null 2>&1 && alias screen-node='\screen -c $HOME/.config/screen/dev/noderc ' || alias screen-node='\screen -t node '
+[ -f "$HOME/.config/screen/singlerc" ] && which screen >/dev/null 2>&1 && alias screen-single='\screen -c $HOME/.config/screen/singlerc ' || alias screen-single='\screen -t single '
+[ -f "$HOME/.config/screen/productivityrc" ] && which screen >/dev/null 2>&1 && alias screen-prod='\screen -c $HOME/.config/screen/productivityrc ' || alias screen-single='\screen -t prod '
+[ -f "$HOME/.config/screen/dev/developmentrc" ] && which screen >/dev/null 2>&1 && alias screen-dev='\screen -c $HOME/.config/screen/dev/developmentrc ' || alias screen-dev='\screen -t dev '
+[ -f "$HOME/.config/screen/other/socialrc" ] && which screen >/dev/null 2>&1 && alias screen-social='\screen -c $HOME/.config/screen/other/socialrc ' || alias screen-social='\screen -t social '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# shell
+alias profilerc='source ~/.profile '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# zsh specific
+[ "$(basename "$SHELL" 2>/dev/null)" = zsh ] && alias zshrc='clear && source ~/.zshrc '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# bash specific
+[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias inputrc='bind -f ~/.inputrc '
+[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias bashrc='clear && source ~/.bashrc '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ssh aliases
+[ -n "$DISPLAY" ] && alias ssh='ssh -X' || alias ssh='ssh '
+[ -n "$DISPLAY" ] && alias sshq='ssh -qX' || alias ssh='ssh -q '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Package management
+[ "$(uname -s)" = Linux ] && which apt >/dev/null 2>&1 && alias apt='sudo apt '
+[ "$(uname -s)" = Linux ] && which apt-get >/dev/null 2>&1 && alias apt-get='sudo apt-get '
+[ "$(uname -s)" = Linux ] && which dnf >/dev/null 2>&1 && alias dnf='sudo dnf '
+[ "$(uname -s)" = Linux ] && which yum >/dev/null 2>&1 && alias yum='sudo yum '
+[ "$(uname -s)" = Linux ] && which pacman >/dev/null 2>&1 && alias pacman='sudo pacman '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ls
+alias ls='ls -h --color=auto '
+alias la='ls -hA --color=auto '
+alias ll='ls -hl --color=auto '
+alias dir='ls -hD --color=auto '
+alias lla='ls -hlA --color=auto '
+alias l.='ls -hA | grep -E --color=auto '\''^\.'\'' '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# CD Aliases
+alias ..='\builtin cd ../'
+alias cd..='\builtin cd ../'
+alias ...='\builtin cd ../../'
+alias ....='\builtin cd ../../../'
+alias .....='\builtin cd ../../../../'
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# VisualStudio code
+if which code-oss >/dev/null 2>&1
+    alias code='code-oss '
+    alias codew='code-oss -w '
+    alias code-np='code-oss --disable-extensions '
+    elif which code-insiders >/dev/null 2>&1
+    alias code='code-insiders '
+    alias codew='code-insiders -w '
+    alias code-np='code-insiders --disable-extensions '
+    elif which code >/dev/null 2>&1
+    alias code='code '
+    alias codew='code -w '
+    alias code-np='code --disable-extensions '
+end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Powershell
+if which pwsh-preview >/dev/null 2>&1
+    alias pwsh='pwsh-preview '
+end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#Set vim
+alias vi='vim '
+alias vis='vim +set si '
+alias svim='sudo vim '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #Set neovim
-alias nvim='nvim -u $HOME/.config/nvim/init.vim'
+if which nvim >/dev/null 2>&1 && [ -f "$HOME/.config/neovim/init.vim" ]
+    alias nvim='nvim -u $HOME/.config/neovim/init.vim'
+    alias neovim='nvim -u $HOME/.config/neovim/init.vim'
+    elif which neovim >/dev/null 2>&1 && [ -f "$HOME/.config/nvim/init.vim" ]
+    alias nvim='neovim -u $HOME/.config/nvim/init.vim'
+    alias neovim='nvim -u $HOME/.config/neovim/init.vim'
+end # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#Set docker
+which minikube >/dev/null 2>&1 && alias kubectl='minikube kubectl '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Lock screen.
-alias afk="gnome-screensaver-command --lock" #lock screen
+# trash aliases.
+which trash >/dev/null 2>&1 && alias empty-trash='trash empty ' || alias empty-trash='rm -Rf ~/.local/share/Trash/files/* && ~/.local/share/Trash/files/info/* '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#youtube-dl
-alias nightcorea="youtube-dl --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 320k --config-location $HOME/.config/youtube-dl/nightcorea "
-alias nightcorev="youtube-dl -f bestvideo+bestaudio --config-location $HOME/.config/youtube-dl/nightcorev "
-alias ytv-best="youtube-dl -f bestvideo+bestaudio --config-location $HOME/.config/youtube-dl/music "
-alias yta-aac="youtube-dl --extract-audio --audio-format aac --config-location $HOME/.config/youtube-dl/music "
-alias yta-best="youtube-dl --extract-audio --audio-format best --config-location $HOME/.config/youtube-dl/music "
-alias yta-flac="youtube-dl --extract-audio --audio-format flac --config-location $HOME/.config/youtube-dl/music "
-alias yta-m4a="youtube-dl --extract-audio --audio-format m4a --config-location $HOME/.config/youtube-dl/music "
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 --config-location $HOME/.config/youtube-dl/music "
-alias yta-opus="youtube-dl --extract-audio --audio-format opus --config-location $HOME/.config/youtube-dl/music "
-alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis --config-location $HOME/.config/youtube-dl/music "
-alias yta-wav="youtube-dl --extract-audio --audio-format wav --config-location $HOME/.config/youtube-dl/music "
-alias ytda="youtube-dl -f bestaudio  --extract-audio --audio-format mp3 --config-location $HOME/.config/youtube-dl/music "
-alias ytdv="youtube-dl -f bestvideo+bestaudio --config-location $HOME/.config/youtube-dl/videos "
-alias ytstream="ytstream "
+# Hide/show icons.
+which gsettings >/dev/null 2>&1 && alias desktop-icons-hide='gsettings set org.gnome.desktop.background show-desktop-icons false '
+which gsettings >/dev/null 2>&1 && alias desktop-icons-show='gsettings set org.gnome.desktop.background show-desktop-icons true '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Empty trash.
-alias empty-trash="rm -rf ~/.local/share/Trash/files/*" #Delete old files
+# Lock Screen
+which xflock4 >/dev/null 2>&1 && alias afk='xflock4 '
+which gnome-screensaver-command >/dev/null 2>&1 && alias afk='gnome-screensaver-command --lock '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Hide/Show desktop icons.
-alias desktop-icons-hide="gsettings set org.gnome.desktop.background show-desktop-icons false"
-alias desktop-icons-show="gsettings set org.gnome.desktop.background show-desktop-icons true"
+# logout
+which xfce4-session-logout >/dev/null 2>&1 && alias logout='xfce4-session-logout '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Open from the terminal.
-alias o="xdg-open"
+# Open command
+[ "$(uname -s)" = Linux ] && which xdg-open >/dev/null 2>&1 && alias open='xdg-open '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# netstat aliases
-alias ports="sudo netstat -taupln | grep LISTEN"
-alias netstat="sudo netstat"
+# youtube-dl
+which youtube-dl >/dev/null 2>&1 && alias nightcorea='ytda nightcorea '
+which youtube-dl >/dev/null 2>&1 && alias nightcorev='ytda nightcorev '
+which youtube-dl >/dev/null 2>&1 && alias ytv-best='ytda ytv '
+which youtube-dl >/dev/null 2>&1 && alias yta-aac='ytda aac '
+which youtube-dl >/dev/null 2>&1 && alias yta-best='ytda yta '
+which youtube-dl >/dev/null 2>&1 && alias yta-flac='ytda flac '
+which youtube-dl >/dev/null 2>&1 && alias yta-m4a='ytda m4a '
+which youtube-dl >/dev/null 2>&1 && alias yta-mp3='ytda mp3 '
+which youtube-dl >/dev/null 2>&1 && alias yta-opus='ytda opus '
+which youtube-dl >/dev/null 2>&1 && alias yta-vorbis='ytda vorbis '
+which youtube-dl >/dev/null 2>&1 && alias yta-wav='ytda wav '
+which youtube-dl >/dev/null 2>&1 && alias ytdv='ytda video '
+which youtube-dl >/dev/null 2>&1 && alias ytstream='ytstream '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#Andriod adb/fastboot
-alias fastboot="sudo fastboot"
-alias adb="sudo adb"
+# Media
+which castero >/dev/null 2>&1 && alias podcasts='castero '
+which spotifyd >/dev/null 2>&1 && alias spotify='spotifyd '
+which pianobar >/dev/null 2>&1 && alias pandora='pianobar '
+which tizonia >/dev/null 2>&1 && alias cloudplayer='tizonia '
+which youtube-viewer >/dev/null 2>&1 && alias youtube='youtube-viewer '
+which mpc >/dev/null 2>&1 && [ -z "$MPDSERVER" ] && alias mpc='mpc ' || alias mpc='mpc -h "$MPDSERVER" '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Python
+which pipx >/dev/null 2>&1 || alias pipx='pip install -U pipx && alias pipx="pipx" '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Other
+which anime-dl >/dev/null 2>&1 && alias anime-cli='anime-dl '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# list functions
+alias list-my-functions='typeset -F | less '
+alias list-my-aliases='alias | less '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #Fun alias
-alias tw="rainbowstream -iot"
-alias twitter="twitter"
-alias mylatlong="mylocation | grep -E 'LAT|LON'"
-alias emj="emojis"
+alias tw='rainbowstream -iot '
+alias twitter='twitter '
+alias mylatlong='mylocation | grep --color=none "LAT\|LON" '
+alias emj='emojis '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# other
+alias shit='rerun_that -- shit'
+alias bork='rerun_that -- bork'
+alias balls='rerun_that -- balls'
+alias please='rerun_that -- please'
+alias gcm='git add . && git commit -am "🗃️ Committing everything that changed 🗃️ " '
+alias scripts_update='sudo -n true && sudo git -C /usr/local/share/CasjaysDev/scripts pull -q && printf_green "Scripts has been updated"'
+alias copy-templates='scripts_update;gen-header --copy;gen-dns --copy;gen-html --copy;gen-license --copy;gen-readme --copy;gen-script --copy;'
+alias update-system='printf_blue "Updating your system. This may take a while......" && pkmgr silent upgrade && sudo systemmgr update &>/dev/null && dfmgr update &>/dev/null && printf_green "Your system has been updated" || printf_red "Failed to update your system" '
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+which thefuck >/dev/null 2>&1 || alias fuck='rerun_that -- fuck'
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# end
+true
