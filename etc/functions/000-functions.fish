@@ -144,3 +144,8 @@ function printf_readline
     printf_color "$line\n" "$color"
   end
 end
+
+
+function add2path -d "Add folder to path"
+
+end

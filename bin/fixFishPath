@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
-case $! in
+case "$1" in
 user)
   shift 1
-  echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$2|$3$4" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g'
+  if [ -z "$FNM_MULTISHELL_PATH" ]; then
+    SET_USR_PATH="$(echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$USRBINDIR" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
+    PATH="$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+  else
+    SET_USR_PATH="$(echo "$1" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$2|$3$4" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
+    PATH="$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+  fi
   ;;
 system)
   shift 1
-
+  PATH="/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"
   ;;
 esac
+
+[ "$SHELL" = "fish" ] && echo "${PATH//:./}" || echo "export PATH=${PATH//:./}"
