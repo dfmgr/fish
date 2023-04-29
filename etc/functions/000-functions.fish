@@ -28,38 +28,37 @@ set -g ICON_WARN "[ ❗ ]"
 set -g ICON_ERROR "[ ✖ ]"
 set -g ICON_QUESTION "[ ❓ ]"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-function printf_color
-    set color (tput setaf "$argv[2]" 2>/dev/null)
-    set reset (tput sgr0 2>/dev/null)
-    printf '%b%b%b' "$color" "$argv[1]" "$reset"
+function printf_color -d 'colorize output'
+    test $argv[2] && set -l DEFAULT_COLOR $argv[2]
+    printf "%b" "$(tput setaf $DEFAULT_COLOR 2>/dev/null)" "$argv[1]\n" "$(tput sgr0 2>/dev/null)"
 end
 
 function printf_normal
-    printf_color "$argv[1]\n" 0
+    printf_color "$argv[1]" 0
 end
 
 function printf_green
-    printf_color "$argv[1]\n" 2
+    printf_color "$argv[1]" 2
 end
 
 function printf_red
-    printf_color "$argv[1]\n" 1
+    printf_color "$argv[1]" 1
 end
 
 function printf_purple
-    printf_color "$argv[1]\n" 5
+    printf_color "$argv[1]" 5
 end
 
 function printf_yellow
-    printf_color "$argv[1]\n" 3
+    printf_color "$argv[1]" 3
 end
 
 function printf_blue
-    printf_color "$argv[1]\n" 4
+    printf_color "$argv[1]" 4
 end
 
 function printf_cyan
-    printf_color "$argv[1]\n" 6
+    printf_color "$argv[1]" 6
 end
 
 function printf_info
@@ -89,11 +88,11 @@ function printf_error_stream
 end
 
 function printf_execute_success
-    printf_color "$ICON_ERROR $argv[1]  \n" 2
+    printf_color "$ICON_ERROR $argv[1] " 2
 end
 
 function printf_execute_error
-    printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
+    printf_color "$ICON_ERROR $argv[1] $argv[2] " 1
 end
 
 function printf_execute_error_stream

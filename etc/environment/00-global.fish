@@ -1,8 +1,24 @@
 #!/usr/bin/env fish
 # shellcheck shell=fish
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202304291602-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.com
+# @@License          :  WTFPL
+# @@ReadME           :  00-global.fish --help
+# @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
+# @@Created          :  Saturday, Apr 29, 2023 16:02 EDT
+# @@File             :  00-global.fish
+# @@Description      :  Fish environment settings
+# @@Changelog        :  newScript
+# @@TODO             :  Refactor code
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx SHELL fish
-set -gx BOLD (tput bold 2>/dev/null)
 set -gx USRBINDIR "$HOME/.local/bin"
 set -gx SYSBINDIR "/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"
 set -gx PATH "$USRBINDIR:$SYSBINDIR"
@@ -22,13 +38,96 @@ set -gx LC_ADDRESS "en_US.UTF-8"
 set -gx LC_TELEPHONE "en_US.UTF-8"
 set -gx LC_MEASUREMENT "en_US.UTF-8"
 set -gx LC_IDENTIFICATION "en_US.UTF-8"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# colors initialization
+set -gx color_prompt yes
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Reset
+set -gx NC (tput sgr0 2>/dev/null)
+set -gx RESET (tput sgr0 2>/dev/null)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Bold
+set -gx BOLD (tput bold 2>/dev/null)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Regular Colors
+set -gx BLACK (printf '%b' '\033[0;30m')
+set -gx RED (printf '%b' '\033[0;31m')
+set -gx GREEN (printf '%b' '\033[0;32m')
+set -gx YELLOW (printf '%b' '\033[0;33m')
+set -gx BLUE (printf '%b' '\033[0;34m')
+set -gx PURPLE (printf '%b' '\033[0;35m')
+set -gx CYAN (printf '%b' '\033[0;36m')
+set -gx WHITE (printf '%b' '\033[0;37m')
+set -gx ORANGE (printf '%b' '\033[0;33m')
+set -gx LIGHTRED (printf '%b' '\033[1;31m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Bold
+set -gx BBLACK (printf '%b' '\033[1;30m')
+set -gx BRED (printf '%b' '\033[1;31m')
+set -gx BGREEN (printf '%b' '\033[1;32m')
+set -gx BYELLOW (printf '%b' '\033[1;33m')
+set -gx BBLUE (printf '%b' '\033[1;34m')
+set -gx BPURPLE (printf '%b' '\033[1;35m')
+set -gx BCYAN (printf '%b' '\033[1;36m')
+set -gx BWHITE (printf '%b' '\033[1;37m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Underline
+set -gx UBLACK (printf '%b' '\033[4;30m')
+set -gx URED (printf '%b' '\033[4;31m')
+set -gx UGREEN (printf '%b' '\033[4;32m')
+set -gx UYELLOW (printf '%b' '\033[4;33m')
+set -gx UBLUE (printf '%b' '\033[4;34m')
+set -gx UPURPLE (printf '%b' '\033[4;35m')
+set -gx UCYAN (printf '%b' '\033[4;36m')
+set -gx UWHITE (printf '%b' '\033[4;37m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Background
+set -gx ON_BLACK (printf '%b' '\033[40m')
+set -gx ON_RED (printf '%b' '\033[41m')
+set -gx ON_GREEN (printf '%b' '\033[42m')
+set -gx ON_YELLOW (printf '%b' '\033[43m')
+set -gx ON_BLUE (printf '%b' '\033[44m')
+set -gx ON_PURPLE (printf '%b' '\033[45m')
+set -gx ON_CYAN (printf '%b' '\033[46m')
+set -gx ON_WHITE (printf '%b' '\033[47m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# High Intensity
+set -gx IBLACK (printf '%b' '\033[0;90m')
+set -gx IRED (printf '%b' '\033[0;91m')
+set -gx IGREEN (printf '%b' '\033[0;92m')
+set -gx IYELLOW (printf '%b' '\033[0;93m')
+set -gx IBLUE (printf '%b' '\033[0;94m')
+set -gx IPURPLE (printf '%b' '\033[0;95m')
+set -gx ICYAN (printf '%b' '\033[0;96m')
+set -gx IWHITE (printf '%b' '\033[0;97m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Bold High Intensity
+set -gx BIBLACK (printf '%b' '\033[1;90m')
+set -gx BIRED (printf '%b' '\033[1;91m')
+set -gx BIGREEN (printf '%b' '\033[1;92m')
+set -gx BIYELLOW (printf '%b' '\033[1;93m')
+set -gx BIBLUE (printf '%b' '\033[1;94m')
+set -gx BIPURPLE (printf '%b' '\033[1;95m')
+set -gx BICYAN (printf '%b' '\033[1;96m')
+set -gx BIWHITE (printf '%b' '\033[1;97m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# High Intensity backgrounds
+set -gx ON_IBLACK (printf '%b' '\033[0;100m')
+set -gx ON_IRED (printf '%b' '\033[0;101m')
+set -gx ON_IGREEN (printf '%b' '\033[0;102m')
+set -gx ON_IYELLOW (printf '%b' '\033[0;103m')
+set -gx ON_IBLUE (printf '%b' '\033[0;104m')
+set -gx ON_IPURPLE (printf '%b' '\033[0;105m')
+set -gx ON_ICYAN (printf '%b' '\033[0;106m')
+set -gx ON_IWHITE (printf '%b' '\033[0;107m')
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx DISPLAY_LOW_DENSITY $DISPLAY
-set -gx RESOLUTION "(xrandr --current 2>/dev/null | grep '\*' | uniq | awk '{print $1}')"
+set -gx RESOLUTION (xrandr --current 2>/dev/null | grep '\*' | \uniq | awk '{print $1}')
 set -gx XKBOPTIONS "terminate:ctrl_alt_bksp"
 set -gx CACHE_DIRECTORY "$HOME/.cache"
 set -gx STATE_DIRECTORY "$HOME/.local/lib"
 set -gx LOGS_DIRECTORY "$HOME/.local/log"
-set -gx RUNTIME_DIRECTORY "/run/user/(id -u)"
+set -gx RUNTIME_DIRECTORY /run/user/(id -u)
 set -gx CONFIGURATION_DIRECTORY "$HOME/.config"
 set -gx XDG_RUNTIME_DIR "$RUNTIME_DIRECTORY"
 set -gx XDG_CONFIG_HOME "$CONFIGURATION_DIRECTORY"
@@ -82,8 +181,8 @@ set -gx SETV_VIRTUAL_DIR_PATH "$HOME/.local/share/python/setvenv/"
 set -gx PIPX_BIN_DIR "$USRBINDIR"
 set -gx PIPX_HOME "$HOME/.local/share/python/pipx"
 set -gx VIRTUALENVWRAPPER_VIRTUALENV_WORKON_CD yes
-set -gx VIRTUALENVWRAPPER_PIP "(which pip3 2>/dev/null || which pip 2>/dev/null)"
-set -gx VIRTUALENVWRAPPER_VIRTUALENV "(which venv 2>/dev/null || which virtualenv 2>/dev/null)"
+set -gx VIRTUALENVWRAPPER_PIP (which pip3 2>/dev/null || which pip 2>/dev/null)
+set -gx VIRTUALENVWRAPPER_VIRTUALENV (which venv 2>/dev/null || which virtualenv 2>/dev/null)
 set -gx RUST_HOME "$HOME/.local/share/rust"
 set -gx CARGO_HOME "$HOME/.local/share/cargo"
 set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
@@ -127,7 +226,7 @@ which kubectl >/dev/null 2>&1 && kubectl completion fish | source || true
 which fnm >/dev/null 2>&1 && fnm env --use-on-cd --shell fish | source >/dev/null || true
 which fnm >/dev/null 2>&1 && fnm completions --shell fish | source >/dev/null || true
 which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker || true
-which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH "(fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH")" || true
+which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH (fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH") || true
 [ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
 [ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
 [ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "/run/docker/docker.sock" || set -gx DOCKER_SOCK "/run/docker.sock"
