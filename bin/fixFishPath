@@ -22,4 +22,4 @@ system)
   ;;
 esac
 
-echo "set -gx PATH $PATH"
+echo "$PATH"

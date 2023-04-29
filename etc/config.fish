@@ -1,11 +1,16 @@
 #!/usr/bin/env fish
+# shellcheck shell=fish
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Ensure oh-my-fish is installed
 # if test ! -d "$HOME/.local/share/fish/plugins/oh-my-fish"
 #     curl -LSs "https://get.oh-my.fish" >"$HOME/.config/fish/omf-install"
 #     fish "$HOME/.config/fish/omf-install --offline --path=$HOME/.local/share/fish/plugins/oh-my-fish --config=$HOME/.config/omf --noninteractive --yes"
 #     fish -c "$HOME/.config/fish/plugins.fish"
 # end
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+if test -d "$HOME/.config/fish/environment/00-global.fish"
+    source "$HOME/.config/fish/environment/00-global.fish"
+end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function __cmd_exists -d 'Check if command exists'
     type $argv

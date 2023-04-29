@@ -28,7 +28,7 @@ set -gx XKBOPTIONS "terminate:ctrl_alt_bksp"
 set -gx CACHE_DIRECTORY "$HOME/.cache"
 set -gx STATE_DIRECTORY "$HOME/.local/lib"
 set -gx LOGS_DIRECTORY "$HOME/.local/log"
-set -gx RUNTIME_DIRECTORY "/run/user/$(id -u)"
+set -gx RUNTIME_DIRECTORY "/run/user/(id -u)"
 set -gx CONFIGURATION_DIRECTORY "$HOME/.config"
 set -gx XDG_RUNTIME_DIR "$RUNTIME_DIRECTORY"
 set -gx XDG_CONFIG_HOME "$CONFIGURATION_DIRECTORY"
@@ -103,13 +103,13 @@ set -gx TODO_DIR "$HOME/.local/share/editors/todos"
 set -gx WALLPAPER_DIR "$HOME/.local/share/wallpapers"
 set -gx THEME_DIR "$HOME/.local/share/themes"
 set -gx ICON_DIR "$HOME/.local/share/icons"
-set -gx FONT_DIR" $HOME/.local/share/fonts"
+set -gx FONT_DIR "$HOME/.local/share/fonts"
 set -gx TERM screen-256color
 set -gx DEFAULT_LOG apps
 set -gx LOGDIR "$LOGS_DIRECTORY"
 set -gx DEFAULT_LOG_DIR "$LOGS_DIRECTORY"
-set -gx CASJAYSDEVDIR /usr/local/share/scripts
-set -gx TMP_BIN_PATH "$CASJAYSDEVDIR:$TMP_BIN_PAT"H
+set -gx CASJAYSDEVDIR /usr/local/share/CasjaysDev/scripts
+set -gx TMP_BIN_PATH "$CASJAYSDEVDIR/bin:$TMP_BIN_PATH"
 set -gx ASCIINEMA_API_URL "https://asciinema.org"
 set -gx CHTSH_HOME "$HOME/.config/cheatsh"
 set -gx SCREENEXCHANGE "$HOME/.screen-exchange"
@@ -126,9 +126,9 @@ set -gx PROFILERCSRC "$HOME/.profile"
 which kubectl >/dev/null 2>&1 && kubectl completion fish | source >/dev/null
 which fnm >/dev/null 2>&1 && fnm env --use-on-cd | source >/dev/null
 which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker
-which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH "$(fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH")"
-set -gx PATH "$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
-set -e SET_PATH SET_TMP_PATH TMP_BIN_PATH
+which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH "(fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH")"
 [ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
 [ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
 [ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "/run/docker/docker.sock" || set -gx DOCKER_SOCK "/run/docker.sock"
+set -gx PATH "$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+set -e -Ug SET_PATH SET_TMP_PATH TMP_BIN_PATH
