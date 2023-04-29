@@ -39,16 +39,24 @@ end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # functions / profile / Abbreviations {{{
 if test -d "$HOME/.config/fish/functions"
-    source "$HOME/.config/fish/functions"/*.fish
+    for source_user_file in "$HOME/.config/fish/functions"/*.fish
+        source "$HOME/.config/fish/functions"/*.fish
+    end
 end
 if test -d "$HOME/.config/fish/alias"
-    source "$HOME/.config/fish/alias"/*.fish
+    for source_user_file in "$HOME/.config/fish/alias"/*.fish
+        source "$HOME/.config/fish/alias"/*.fish
+    end
 end
 if test -d "$HOME/.config/fish/profile"
-    source "$HOME/.config/fish/profile"/*.fish
+    for source_user_file in "$HOME/.config/fish/profile"/*.fish
+        source "$HOME/.config/fish/profile"/*.fish
+    end
 end
 if test -d "$HOME/.config/fish/completions"
-    source "$HOME/.config/fish/completions"/*.fish
+    for source_user_file in "$HOME/.config/fish/completions"/*.fish
+        source "$HOME/.config/fish/completions"/*.fish
+    end
 end
 # }}}
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -138,5 +146,13 @@ end
 if test -f "$HOME/.config/local/fish.(hostname -s).local"
     source "$HOME/.config/local/fish.(hostname -s).local"
 end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+if test -f "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
+    source "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
+end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -e -n "\x1b[\x35 q" 2>/dev/null
-echo -e -n "\e]12;cyan\a" 2>/dev/null
+echo -e -n "\e]12
+cyan\a" 2>/dev/null
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+true

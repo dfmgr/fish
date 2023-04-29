@@ -1,21 +1,28 @@
 #!/usr/bin/env fish
+# shellcheck shell=fish
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version           :  202304251902-git
+##@Version           :  202304291932-git
 # @@Author           :  Jason Hempstead
 # @@Contact          :  git-admin@casjaysdev.com
-# @@License          :  LICENSE.md
-# @@ReadME           :  00-functions.fish --help
+# @@License          :  WTFPL
+# @@ReadME           :  fish --help
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
-# @@Created          :  Tuesday, Apr 25, 2023 19:12 EDT
-# @@File             :  00-functions.fish
-# @@Description      :  Default fish functions
+# @@Created          :  Saturday, Apr 29, 2023 19:32 EDT
+# @@File             :  000-functions.fish
+# @@Description      :  newScript
 # @@Changelog        :  newScript
 # @@TODO             :  Refactor code
-# @@Other            :
-# @@Resource         :
+# @@Other            :  
+# @@Resource         :  
 # @@Terminal App     :  no
 # @@sudo/root        :  no
-# @@Template         :  bash/system
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# shell check options
+# shellcheck disable=SC2317
+# shellcheck disable=SC2120
+# shellcheck disable=SC2155
+# shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function cmd_exists -d 'Check if command exists'
     type $argv

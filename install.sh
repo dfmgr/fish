@@ -183,7 +183,7 @@ __run_post_message() {
 # Define pre-install scripts
 __run_pre_install() {
   local getRunStatus=0
-  [ -d "$PLUGIN_DIR/oh-my-fish" ] || [ -d "$PLUGIN_DIR/inst" ] || __run_git_clone_pull "https://github.com/oh-my-fish/oh-my-fish" "$PLUGIN_DIR/inst"
+  __run_git_clone_pull "https://github.com/oh-my-fish/oh-my-fish" "$PLUGIN_DIR/inst"
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
