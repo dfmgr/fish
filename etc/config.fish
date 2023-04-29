@@ -8,7 +8,7 @@
 #     fish -c "$HOME/.config/fish/plugins.fish"
 # end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-if test -d "$HOME/.config/fish/environment/00-global.fish"
+if test -f "$HOME/.config/fish/environment/00-global.fish"
     source "$HOME/.config/fish/environment/00-global.fish"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -17,13 +17,6 @@ function __cmd_exists -d 'Check if command exists'
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # set env
-function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
-    if test -d $argv[1]
-        if not contains $argv[1] $PATH
-            set -gx PATH "$argv[1]" $PATH
-        end
-    end
-end
 set -g -x GPG_TTY (tty)
 set -g -x PAGER 'less -X'
 set -g -x EDITOR myeditor
@@ -41,7 +34,7 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/nodejs/nvm"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.sudo"
-    rm -Rf "$HOME/.sudo"
+    touch "$HOME/.sudo"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # functions / profile / Abbreviations {{{
@@ -58,9 +51,6 @@ if test -d "$HOME/.config/fish/completions"
     source "$HOME/.config/fish/completions"/*.fish
 end
 # }}}
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Z
-# source "$HOME/.config/fish/z.fish"
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Completions {{{
 function make_completion --argument alias command
