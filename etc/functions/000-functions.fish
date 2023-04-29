@@ -29,8 +29,8 @@ set -g ICON_ERROR "[ ✖ ]"
 set -g ICON_QUESTION "[ ❓ ]"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function printf_color
-  set color (tput setaf "$argv[2]" 2>/dev/null)
-  set reset (tput sgr0 2>/dev/null)
+    set color (tput setaf "$argv[2]" 2>/dev/null)
+    set reset (tput sgr0 2>/dev/null)
     printf '%b%b%b' "$color" "$argv[1]" "$reset"
 end
 
@@ -63,99 +63,90 @@ function printf_cyan
 end
 
 function printf_info
-  printf_color "$ICON_INFO $argv[1]\n" 3
+    printf_color "$ICON_INFO $argv[1]\n" 3
 end
 
 function printf_success
-  printf_color "$ICON_GOOD $argv[1]\n" 2
+    printf_color "$ICON_GOOD $argv[1]\n" 2
 end
 
 function printf_error
-  printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
+    printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
 end
 
-function  printf_warning
+function printf_warning
     printf_color "$ICON_WARN $argv[1]\n" 3
 end
 
 function printf_question
-  printf_color "$ICON_QUESTION $argv[1] " 6
+    printf_color "$ICON_QUESTION $argv[1] " 6
 end
 
 function printf_error_stream
-  while read -r line; do printf_error "↳ ERROR: $line"; end
+    while read -r line
+        do printf_error "↳ ERROR: $line"
+    end
 end
 
 function printf_execute_success
-  printf_color "$ICON_ERROR $argv[1]  \n" 2
+    printf_color "$ICON_ERROR $argv[1]  \n" 2
 end
 
 function printf_execute_error
-  printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
+    printf_color "$ICON_ERROR $argv[1] $argv[2] \n" 1
 end
 
 function printf_execute_error_stream
-  while read -r line; do printf_execute_error "↳ ERROR: $line"; end
+    while read -r line
+        do printf_execute_error "↳ ERROR: $line"
+    end
 end
 
 function printf_exit
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "1"
-  set -l msg "$argv"
-  printf_color "$msg" "$color"
-  echo ""
-  return 0
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 1
+    set -l msg "$argv"
+    printf_color "$msg" "$color"
+    echo ""
+    return 0
 end
 
 function printf_help
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]"  || set -l color "4"
-  set -l msg "$argv"
-  echo ""
-  printf_color "$msg\n" "$color"
-  echo ""
-  return 0
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 4
+    set -l msg "$argv"
+    echo ""
+    printf_color "$msg\n" "$color"
+    echo ""
+    return 0
 end
 
 function printf_pause
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
-  set -l msg "$argv"
-  printf_color "$msg " "$color"
-  read -r -n 1 -s
-  printf "\n"
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 5
+    set -l msg "$argv"
+    printf_color "$msg " "$color"
+    read -r -n 1 -s
+    printf "\n"
 end
 
 function printf_custom
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "5"
-  set -l msg "$argv"
-  printf_color "$msg" "$color"
-  echo ""
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 5
+    set -l msg "$argv"
+    printf_color "$msg" "$color"
+    echo ""
 end
 
 function printf_read
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
-  while read line; do
-    printf_color "$line" "$color"
-  end
-  printf "\n"
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 6
+    while read line
+        do
+        printf_color "$line" "$color"
+    end
+    printf "\n"
 end
 
 function printf_readline
-  test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color "6"
-  while read line; do
-    printf_color "$line\n" "$color"
-  end
-end
-
-
-function add2path -d "Add folder to path"
-  if test -n "$argv[1]"
-    set -l dir "$(realpath "$argv[1]")"
-    if test -d "$dir" && ! echo "$PATH"| grep -qw "$dir"
-      printf '%b\n' "Added $dir to path"
-      set -gx PATH "$dir:$PATH"
-    else
-        printf '%b\n' "$dir is already in the path"
+    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 6
+    while read line
+        do
+        printf_color "$line\n" "$color"
     end
-  else
-    printf '%b\n' "Usage add2path [directory]"
-  end
 end

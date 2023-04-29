@@ -136,8 +136,6 @@ set -g theme_date_format "+%H:%M"
 set -g theme_project_dir_length 0
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
 set -U SXHKD_SHELL sh
-echo -e -n "\x1b[\x35 q" 2>/dev/null
-echo -e -n "\e]12;cyan\a" 2>/dev/null
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
@@ -150,3 +148,5 @@ end
 if test -f "$HOME/.config/local/fish.(hostname -s).local"
     source "$HOME/.config/local/fish.(hostname -s).local"
 end
+echo -e -n "\x1b[\x35 q" 2>/dev/null
+echo -e -n "\e]12;cyan\a" 2>/dev/null

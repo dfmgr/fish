@@ -114,11 +114,11 @@ if which code-oss >/dev/null 2>&1
     alias code='code-oss '
     alias codew='code-oss -w '
     alias code-np='code-oss --disable-extensions '
-    elif which code-insiders >/dev/null 2>&1
+else if which code-insiders >/dev/null 2>&1
     alias code='code-insiders '
     alias codew='code-insiders -w '
     alias code-np='code-insiders --disable-extensions '
-    elif which code >/dev/null 2>&1
+else if which code >/dev/null 2>&1
     alias code='code '
     alias codew='code -w '
     alias code-np='code --disable-extensions '
@@ -127,6 +127,9 @@ end
 # Powershell
 if which pwsh-preview >/dev/null 2>&1
     alias pwsh='pwsh-preview '
+    alias powershell='pwsh-preview '
+else if which pwsh >/dev/null 2>&1
+    alias powershell='pwsh '
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #Set vim
@@ -138,7 +141,7 @@ alias svim='sudo vim '
 if which nvim >/dev/null 2>&1 && [ -f "$HOME/.config/neovim/init.vim" ]
     alias nvim='nvim -u $HOME/.config/neovim/init.vim'
     alias neovim='nvim -u $HOME/.config/neovim/init.vim'
-    elif which neovim >/dev/null 2>&1 && [ -f "$HOME/.config/nvim/init.vim" ]
+else if which neovim >/dev/null 2>&1 && [ -f "$HOME/.config/nvim/init.vim" ]
     alias nvim='neovim -u $HOME/.config/nvim/init.vim'
     alias neovim='nvim -u $HOME/.config/neovim/init.vim'
 end # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
