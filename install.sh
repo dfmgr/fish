@@ -142,7 +142,7 @@ BUILD_SRC_URL=""
 BUILD_SCRIPT_SRC_DIR="$PLUGIN_DIR/source"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup plugins
-PLUGIN_REPOS=""
+PLUGIN_REPOS="https://github.com/oh-my-fish/oh-my-fish"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Grab release from github releases
 LATEST_RELEASE=""
@@ -183,7 +183,6 @@ __run_post_message() {
 # Define pre-install scripts
 __run_pre_install() {
   local getRunStatus=0
-  __run_git_clone_pull "https://github.com/oh-my-fish/oh-my-fish" "$PLUGIN_DIR/inst"
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -197,11 +196,10 @@ __run_prepost_install() {
 # run after primary post install function
 __run_post_install() {
   local getRunStatus=0
-  [ -d "$APPDIR" ] || __mkdir "$APPDIR"
   [ -d "$HOME/.config/omf" ] && __mv_f "$HOME/.config/omf" "$HOME/.config/omf.bak"
-  if [ -f "$PLUGIN_DIR/inst/bin/install" ]; then
-    fish "$PLUGIN_DIR/inst/bin/install" --offline --path="$PLUGIN_DIR/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes >&2 || false
-    [ $? -eq 0 ] && { [ -d "$PLUGIN_DIR/inst" ] && __rm_rf "$PLUGIN_DIR/inst" || true; } || return 1
+  if [ -f "$PLUGIN_DIR/oh-my-fish/bin/install" ]; then
+    fish "$PLUGIN_DIR/oh-my-fish/bin/install" --offline --config="$HOME/.config/omf" --noninteractive --yes >&2 || false
+    [ $? -ne 0 ] && printf_red "Failed to install oh-my-fish" >&2 && return 1
   fi
   if [ -d "$HOME/.config/omf.bak" ]; then
     if [ -d "$HOME/.config/omf" ]; then
