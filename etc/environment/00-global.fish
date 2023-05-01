@@ -160,9 +160,6 @@ set -gx GOFISH_BARREL "$GOFISH_HOME/Barrel"
 set -gx GOFISH_DEFAULT_RIG "$GOFISH_HOME/Rigs/github.com/fishworks/fish-food"
 set -gx rvm_path "$HOME/.local/share/rvm"
 set -gx TMP_BIN_PATH "$rvm_path/bin:$TMP_BIN_PATH"
-set -gx GEM_HOME $HOME/.local/share/gem
-set -gx GEM_PATH (ruby -e 'puts Gem.user_dir')/bin
-set -gx TMP_BIN_PATH "$GEM_PATH:$TMP_BIN_PATH"
 set -gx PNPM_HOME "$HOME/.local/share/nodejs/pnpm"
 set -gx TMP_BIN_PATH "$PNPM_HOME:$TMP_BIN_PATH"
 set -gx FNM_BIN "$USRBINDIR"
