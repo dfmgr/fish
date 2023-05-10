@@ -122,7 +122,7 @@ set -gx ON_ICYAN (printf '%b' '\033[0;106m')
 set -gx ON_IWHITE (printf '%b' '\033[0;107m')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx DISPLAY_LOW_DENSITY $DISPLAY
-set -gx RESOLUTION (xrandr --current 2>/dev/null | grep '\*' | sort -u | awk '{print $1}')
+set -gx RESOLUTION (type -q xrand && xrandr --current 2>/dev/null | grep '\*' | sort -u | awk '{print $1}'||true)
 set -gx XKBOPTIONS "terminate:ctrl_alt_bksp"
 set -gx CACHE_DIRECTORY "$HOME/.cache"
 set -gx STATE_DIRECTORY "$HOME/.local/lib"
