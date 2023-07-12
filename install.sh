@@ -204,18 +204,27 @@ __run_post_install() {
   local getRunStatus=0
   [ -d "$HOME/.config/omf" ] && __mv_f "$HOME/.config/omf" "$HOME/.config/omf.bak"
   if [ -f "$PLUGIN_DIR/oh-my-fish/bin/install" ]; then
-    fish "$PLUGIN_DIR/oh-my-fish/bin/install" --offline --config="$HOME/.config/omf" --noninteractive --yes >&2 || false
-    [ $? -ne 0 ] && printf_red "Failed to install oh-my-fish" >&2 && return 1
-  fi
-  if [ -d "$HOME/.config/omf.bak" ]; then
-    if [ -d "$HOME/.config/omf" ]; then
-      __cp_rf "$HOME/.config/omf.bak/." "$HOME/.config/omf/"
-      __rm_rf "$HOME/.config/omf.bak"
+    fish "$PLUGIN_DIR/oh-my-fish/bin/install" --offline --config="$HOME/.config/omf" --noninteractive --yes >&2 && true || false
+    if [ $? -eq 0 ]; then
+      if [ -d "$HOME/.config/omf.bak" ]; then
+        if [ -d "$HOME/.config/omf" ]; then
+          __cp_rf "$HOME/.config/omf.bak/." "$HOME/.config/omf/"
+          __rm_rf "$HOME/.config/omf.bak"
+        else
+          __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
+        fi
+      fi
+      if [ -d "$PLUGIN_DIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ]; then
+        fish -c "$APPDIR/plugins.fish" || printf '%s\n' "oh-my-fish install failed" >&2
+      else
+        return 1
+      fi
     else
-      __mv_f "$HOME/.config/omf.bak" "$HOME/.config/omf"
+      printf '%s\n' "Failed to install oh-my-fish" >&2
+      return 1
     fi
   fi
-  [ -d "$PLUGIN_DIR/oh-my-fish" ] && [ -f "$APPDIR/plugins.fish" ] && fish -c "$APPDIR/plugins.fish" || echo "oh-my-fish install failed" >&2
+
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
