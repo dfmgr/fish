@@ -75,11 +75,11 @@ alias flushdns='sudo systemd-resolve --flush-caches '
 alias profilerc='source ~/.profile '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # zsh specific
-[ "$(basename "$SHELL" 2>/dev/null)" = zsh ] && alias zshrc='clear && source ~/.zshrc '
+[ "$(basename "$SHELL" 2>/dev/null)" = zsh ] && alias zshrc='clear && source ~/.zshrc'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # bash specific
-[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias inputrc='bind -f ~/.inputrc '
-[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias bashrc='clear && source ~/.bashrc '
+[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias inputrc='bind -f ~/.inputrc'
+[ "$(basename "$SHELL" 2>/dev/null)" = bash ] && alias bashrc='clear && source ~/.bashrc'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # ssh aliases
 [ -n "$DISPLAY" ] && alias ssh='ssh -X' || alias ssh='ssh '
