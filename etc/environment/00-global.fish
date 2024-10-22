@@ -226,6 +226,6 @@ which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set
 which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH (fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH") || true
 [ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
 [ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
-[ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "/run/docker/docker.sock" || set -gx DOCKER_SOCK "/run/docker.sock"
+[ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "unix:///run/docker/docker.sock" || set -gx DOCKER_SOCK "unix:///run/docker.sock"
 set -gx PATH "$SET_USR_PATH:."
 set -e -Ug SET_PATH SET_TMP_PATH TMP_BIN_PATH
