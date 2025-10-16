@@ -29,9 +29,7 @@ set -g -x JAVA_OPTIONS "-Djava.awt.headless=true"
 set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # create dirs
-mkdir -p "$HOME/.local/log"
-mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.local/share/nodejs/nvm"
+mkdir -p "$HOME/.local/log" "$HOME/.local/bin" "$HOME/.local/share/nodejs/nvm"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.sudo"
     touch "$HOME/.sudo"
@@ -40,22 +38,22 @@ end
 # functions / profile / Abbreviations {{{
 if test -d "$HOME/.config/fish/functions"
     for source_user_file in "$HOME/.config/fish/functions"/*.fish
-        source "$HOME/.config/fish/functions"/*.fish
+        test -f "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/alias"
     for source_user_file in "$HOME/.config/fish/alias"/*.fish
-        source "$HOME/.config/fish/alias"/*.fish
+        test -f "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/profile"
     for source_user_file in "$HOME/.config/fish/profile"/*.fish
-        source "$HOME/.config/fish/profile"/*.fish
+        test -f "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/completions"
     for source_user_file in "$HOME/.config/fish/completions"/*.fish
-        source "$HOME/.config/fish/completions"/*.fish
+        test -f "$source_user_file"; and source "$source_user_file"
     end
 end
 # }}}
@@ -90,14 +88,21 @@ function fish_user_key_bindings
     jesus_fucking_christ_bind_the_fucking_keys_fish
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Less Colors for Man Pages
-set -g -x LESS_TERMCAP_mb (printf '\e[01;31m') # begin blinking
-set -g -x LESS_TERMCAP_md (printf '\e[01;38;5;74m') # begin bold
-set -g -x LESS_TERMCAP_me (printf '\e[0m') # end mode
-set -g -x LESS_TERMCAP_se (printf '\e[0m') # end standout-mode
-set -g -x LESS_TERMCAP_so (printf '\e[38;5;246m') # begin standout-mode - info box
-set -g -x LESS_TERMCAP_ue (printf '\e[0m') # end underline
-set -g -x LESS_TERMCAP_us (printf '\e[04;38;5;146m') # begin underline
+# Less Colors for Man Pages (optimized for light/dark backgrounds)
+# Begin blinking - red
+set -g -x LESS_TERMCAP_mb (printf '\e[01;31m')
+# Begin bold - cyan (works on both backgrounds)
+set -g -x LESS_TERMCAP_md (printf '\e[01;36m')
+# End mode
+set -g -x LESS_TERMCAP_me (printf '\e[0m')
+# End standout-mode
+set -g -x LESS_TERMCAP_se (printf '\e[0m')
+# Begin standout-mode - magenta (works on both backgrounds)
+set -g -x LESS_TERMCAP_so (printf '\e[01;35m')
+# End underline
+set -g -x LESS_TERMCAP_ue (printf '\e[0m')
+# Begin underline - green (works on both backgrounds)
+set -g -x LESS_TERMCAP_us (printf '\e[04;32m')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 set -g theme_display_git yes
@@ -151,8 +156,6 @@ if test -f "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
     source "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo -e -n "\x1b[\x35 q" 2>/dev/null
-echo -e -n "\e]12
-cyan\a" 2>/dev/null
+printf '\x1b[\x35 q\e]12;cyan\a' 2>/dev/null
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 true
