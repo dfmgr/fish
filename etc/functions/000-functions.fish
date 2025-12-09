@@ -35,13 +35,14 @@ set -g ICON_WARN "[ ❗ ]"
 set -g ICON_ERROR "[ ✖ ]"
 set -g ICON_QUESTION "[ ❓ ]"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Optimized: Use bright ANSI codes for better visibility on both backgrounds
 function printf_color -d 'colorize output'
     test $argv[2] && set -l DEFAULT_COLOR $argv[2]
-    printf "%b" "$(tput setaf $DEFAULT_COLOR 2>/dev/null)" "$argv[1]\n" "$(tput sgr0 2>/dev/null)"
+    printf "%b\e[9%sm%s\e[0m\n" "" "$DEFAULT_COLOR" "$argv[1]"
 end
 
 function printf_normal
-    printf_color "$argv[1]" 0
+    printf_color "$argv[1]" 7
 end
 
 function printf_green
@@ -69,15 +70,15 @@ function printf_cyan
 end
 
 function printf_info
-    printf_color "$ICON_INFO $argv[1]\n" 3
+    printf_color "$ICON_INFO $argv[1]" 3
 end
 
 function printf_success
-    printf_color "$ICON_GOOD $argv[1]\n" 2
+    printf_color "$ICON_GOOD $argv[1]" 2
 end
 
 function printf_error
-    printf_color "$ICON_ERROR $argv[1] $argv[2]\n" 1
+    printf_color "$ICON_ERROR $argv[1] $argv[2]" 1
 end
 
 function printf_warning

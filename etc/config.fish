@@ -36,24 +36,25 @@ if test -f "$HOME/.sudo"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # functions / profile / Abbreviations {{{
+# Optimized: Skip empty files with test -s
 if test -d "$HOME/.config/fish/functions"
     for source_user_file in "$HOME/.config/fish/functions"/*.fish
-        test -f "$source_user_file"; and source "$source_user_file"
+        test -s "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/alias"
     for source_user_file in "$HOME/.config/fish/alias"/*.fish
-        test -f "$source_user_file"; and source "$source_user_file"
+        test -s "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/profile"
     for source_user_file in "$HOME/.config/fish/profile"/*.fish
-        test -f "$source_user_file"; and source "$source_user_file"
+        test -s "$source_user_file"; and source "$source_user_file"
     end
 end
 if test -d "$HOME/.config/fish/completions"
     for source_user_file in "$HOME/.config/fish/completions"/*.fish
-        test -f "$source_user_file"; and source "$source_user_file"
+        test -s "$source_user_file"; and source "$source_user_file"
     end
 end
 # }}}

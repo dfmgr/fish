@@ -42,84 +42,85 @@ set -gx LC_IDENTIFICATION "en_US.UTF-8"
 # colors initialization
 set -gx color_prompt yes
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Optimized: Use bright ANSI codes for better visibility on both dark and light backgrounds
 # Reset
-set -gx NC (tput sgr0 2>/dev/null)
-set -gx RESET (tput sgr0 2>/dev/null)
+set -gx NC '\e[0m'
+set -gx RESET '\e[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Bold
-set -gx BOLD (tput bold 2>/dev/null)
+set -gx BOLD '\e[1m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Regular Colors
-set -gx BLACK (printf '%b' '\033[0;30m')
-set -gx RED (printf '%b' '\033[0;31m')
-set -gx GREEN (printf '%b' '\033[0;32m')
-set -gx YELLOW (printf '%b' '\033[0;33m')
-set -gx BLUE (printf '%b' '\033[0;34m')
-set -gx PURPLE (printf '%b' '\033[0;35m')
-set -gx CYAN (printf '%b' '\033[0;36m')
-set -gx WHITE (printf '%b' '\033[0;37m')
-set -gx ORANGE (printf '%b' '\033[0;33m')
-set -gx LIGHTRED (printf '%b' '\033[1;31m')
+# Regular Colors (bright variants for better visibility)
+set -gx BLACK '\e[0;90m'
+set -gx RED '\e[0;91m'
+set -gx GREEN '\e[0;92m'
+set -gx YELLOW '\e[0;93m'
+set -gx BLUE '\e[0;94m'
+set -gx PURPLE '\e[0;95m'
+set -gx CYAN '\e[0;96m'
+set -gx WHITE '\e[0;97m'
+set -gx ORANGE '\e[0;93m'
+set -gx LIGHTRED '\e[1;91m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Bold
-set -gx BBLACK (printf '%b' '\033[1;30m')
-set -gx BRED (printf '%b' '\033[1;31m')
-set -gx BGREEN (printf '%b' '\033[1;32m')
-set -gx BYELLOW (printf '%b' '\033[1;33m')
-set -gx BBLUE (printf '%b' '\033[1;34m')
-set -gx BPURPLE (printf '%b' '\033[1;35m')
-set -gx BCYAN (printf '%b' '\033[1;36m')
-set -gx BWHITE (printf '%b' '\033[1;37m')
+# Bold (bright variants)
+set -gx BBLACK '\e[1;90m'
+set -gx BRED '\e[1;91m'
+set -gx BGREEN '\e[1;92m'
+set -gx BYELLOW '\e[1;93m'
+set -gx BBLUE '\e[1;94m'
+set -gx BPURPLE '\e[1;95m'
+set -gx BCYAN '\e[1;96m'
+set -gx BWHITE '\e[1;97m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Underline
-set -gx UBLACK (printf '%b' '\033[4;30m')
-set -gx URED (printf '%b' '\033[4;31m')
-set -gx UGREEN (printf '%b' '\033[4;32m')
-set -gx UYELLOW (printf '%b' '\033[4;33m')
-set -gx UBLUE (printf '%b' '\033[4;34m')
-set -gx UPURPLE (printf '%b' '\033[4;35m')
-set -gx UCYAN (printf '%b' '\033[4;36m')
-set -gx UWHITE (printf '%b' '\033[4;37m')
+# Underline (bright variants)
+set -gx UBLACK '\e[4;90m'
+set -gx URED '\e[4;91m'
+set -gx UGREEN '\e[4;92m'
+set -gx UYELLOW '\e[4;93m'
+set -gx UBLUE '\e[4;94m'
+set -gx UPURPLE '\e[4;95m'
+set -gx UCYAN '\e[4;96m'
+set -gx UWHITE '\e[4;97m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Background
-set -gx ON_BLACK (printf '%b' '\033[40m')
-set -gx ON_RED (printf '%b' '\033[41m')
-set -gx ON_GREEN (printf '%b' '\033[42m')
-set -gx ON_YELLOW (printf '%b' '\033[43m')
-set -gx ON_BLUE (printf '%b' '\033[44m')
-set -gx ON_PURPLE (printf '%b' '\033[45m')
-set -gx ON_CYAN (printf '%b' '\033[46m')
-set -gx ON_WHITE (printf '%b' '\033[47m')
+set -gx ON_BLACK '\e[40m'
+set -gx ON_RED '\e[41m'
+set -gx ON_GREEN '\e[42m'
+set -gx ON_YELLOW '\e[43m'
+set -gx ON_BLUE '\e[44m'
+set -gx ON_PURPLE '\e[45m'
+set -gx ON_CYAN '\e[46m'
+set -gx ON_WHITE '\e[47m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # High Intensity
-set -gx IBLACK (printf '%b' '\033[0;90m')
-set -gx IRED (printf '%b' '\033[0;91m')
-set -gx IGREEN (printf '%b' '\033[0;92m')
-set -gx IYELLOW (printf '%b' '\033[0;93m')
-set -gx IBLUE (printf '%b' '\033[0;94m')
-set -gx IPURPLE (printf '%b' '\033[0;95m')
-set -gx ICYAN (printf '%b' '\033[0;96m')
-set -gx IWHITE (printf '%b' '\033[0;97m')
+set -gx IBLACK '\e[0;90m'
+set -gx IRED '\e[0;91m'
+set -gx IGREEN '\e[0;92m'
+set -gx IYELLOW '\e[0;93m'
+set -gx IBLUE '\e[0;94m'
+set -gx IPURPLE '\e[0;95m'
+set -gx ICYAN '\e[0;96m'
+set -gx IWHITE '\e[0;97m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Bold High Intensity
-set -gx BIBLACK (printf '%b' '\033[1;90m')
-set -gx BIRED (printf '%b' '\033[1;91m')
-set -gx BIGREEN (printf '%b' '\033[1;92m')
-set -gx BIYELLOW (printf '%b' '\033[1;93m')
-set -gx BIBLUE (printf '%b' '\033[1;94m')
-set -gx BIPURPLE (printf '%b' '\033[1;95m')
-set -gx BICYAN (printf '%b' '\033[1;96m')
-set -gx BIWHITE (printf '%b' '\033[1;97m')
+set -gx BIBLACK '\e[1;90m'
+set -gx BIRED '\e[1;91m'
+set -gx BIGREEN '\e[1;92m'
+set -gx BIYELLOW '\e[1;93m'
+set -gx BIBLUE '\e[1;94m'
+set -gx BIPURPLE '\e[1;95m'
+set -gx BICYAN '\e[1;96m'
+set -gx BIWHITE '\e[1;97m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # High Intensity backgrounds
-set -gx ON_IBLACK (printf '%b' '\033[0;100m')
-set -gx ON_IRED (printf '%b' '\033[0;101m')
-set -gx ON_IGREEN (printf '%b' '\033[0;102m')
-set -gx ON_IYELLOW (printf '%b' '\033[0;103m')
-set -gx ON_IBLUE (printf '%b' '\033[0;104m')
-set -gx ON_IPURPLE (printf '%b' '\033[0;105m')
-set -gx ON_ICYAN (printf '%b' '\033[0;106m')
-set -gx ON_IWHITE (printf '%b' '\033[0;107m')
+set -gx ON_IBLACK '\e[0;100m'
+set -gx ON_IRED '\e[0;101m'
+set -gx ON_IGREEN '\e[0;102m'
+set -gx ON_IYELLOW '\e[0;103m'
+set -gx ON_IBLUE '\e[0;104m'
+set -gx ON_IPURPLE '\e[0;105m'
+set -gx ON_ICYAN '\e[0;106m'
+set -gx ON_IWHITE '\e[0;107m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx DISPLAY_LOW_DENSITY $DISPLAY
 set -gx RESOLUTION (type -q xrand && xrandr --current 2>/dev/null | grep '\*' | sort -u | awk '{print $1}'||true)
