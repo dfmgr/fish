@@ -24,7 +24,8 @@
 # shellcheck disable=SC2155
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-set -g -x MUTT_BIN (which neomutt)
+# type -p returns path in fish (equivalent to command -v)
+set -g -x MUTT_BIN (type -p neomutt 2>/dev/null)
 function mutt
     bash --login -c "cd ~; $MUTT_BIN \$@" custom_mutt $argv
 end

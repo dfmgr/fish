@@ -179,8 +179,9 @@ set -gx SETV_VIRTUAL_DIR_PATH "$HOME/.local/share/python/setvenv/"
 set -gx PIPX_BIN_DIR "$USRBINDIR"
 set -gx PIPX_HOME "$HOME/.local/share/python/pipx"
 set -gx VIRTUALENVWRAPPER_VIRTUALENV_WORKON_CD yes
-set -gx VIRTUALENVWRAPPER_PIP (which pip3 2>/dev/null || which pip 2>/dev/null)
-set -gx VIRTUALENVWRAPPER_VIRTUALENV (which venv 2>/dev/null || which virtualenv 2>/dev/null)
+# type -p returns path in fish (equivalent to command -v)
+set -gx VIRTUALENVWRAPPER_PIP (type -p pip3 2>/dev/null || type -p pip 2>/dev/null)
+set -gx VIRTUALENVWRAPPER_VIRTUALENV (type -p venv 2>/dev/null || type -p virtualenv 2>/dev/null)
 set -gx RUST_HOME "$HOME/.local/share/rust"
 set -gx CARGO_HOME "$HOME/.local/share/cargo"
 set -gx RUSTUP_HOME "$HOME/.local/share/rustup"
@@ -220,11 +221,12 @@ set -gx PROFILERCSRC "$HOME/.profile"
 [ -d "$HOME/.config/local" ] || mkdir -p "$HOME/.config/local"
 [ -d "$HOME/.config/secure/inc" ] || mkdir -p "$HOME/.config/secure/inc"
 
-which kubectl >/dev/null 2>&1 && kubectl completion fish | source || true
-which fnm >/dev/null 2>&1 && fnm env --use-on-cd --shell fish | source >/dev/null || true
-which fnm >/dev/null 2>&1 && fnm completions --shell fish | source >/dev/null || true
-which podman >/dev/null 2>&1 && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker || true
-which fixFishPath >/dev/null 2>&1 && set -gx SET_USR_PATH (fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH") || true
+# type -q is quiet existence check in fish (equivalent to command -v ... >/dev/null 2>&1)
+type -q kubectl && kubectl completion fish | source || true
+type -q fnm && fnm env --use-on-cd --shell fish | source >/dev/null || true
+type -q fnm && fnm completions --shell fish | source >/dev/null || true
+type -q podman && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker || true
+type -q fixFishPath && set -gx SET_USR_PATH (fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH") || true
 [ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
 [ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
 [ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "unix:///run/docker/docker.sock" || set -gx DOCKER_SOCK "unix:///run/docker.sock"

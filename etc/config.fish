@@ -157,6 +157,7 @@ if test -f "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
     source "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-printf '\x1b[\x35 q\e]12;cyan\a' 2>/dev/null
+# Set cursor type - blinking bar (I-beam) with cyan color
+printf '\e[5 q\e]12;cyan\a' 2>/dev/null
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 true

@@ -25,6 +25,6 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function updatevim -d "update vim"
-    set -lx SHELL (which sh)
+    set -lx SHELL (type -p sh 2>/dev/null)
     vim +BundleInstall! +BundleClean +qall
 end
