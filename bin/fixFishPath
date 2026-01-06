@@ -1,20 +1,183 @@
 #!/usr/bin/env bash
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : 202601061012-git
+# @Author        : Jason Hempstead
+# @Contact       : jason@casjaysdev.pro
+# @License       : WTFPL
+# @ReadME        : fixFishPath --help
+# @Copyright     : Copyright: (c) 2021 Jason Hempstead, CasjaysDev
+# @Created       : Monday, Jan 06, 2025 00:00 EST
+# @File          : fixFishPath
+# @Description   : Fix PATH for fish shell
+# @Changelog     : Refactored for self-contained operation
+# @TODO          :
+# @Other         :
+# @Resource      :
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Script variables
+PROG="fixFishPath"
+VERSION="202601061012-git"
+USER="${SUDO_USER:-${USER}}"
+HOME="${USER_HOME:-${HOME}}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Environment Detection
+__get_os() {
+  case "$(uname -s)" in
+    Linux*) echo "linux" ;;
+    Darwin*) echo "mac" ;;
+    *BSD*) echo "bsd" ;;
+    MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
+    *) echo "unknown" ;;
+  esac
+}
 
-case "$1" in
-user)
-  shift 1
-  NEW_PATH=""
-  TMP_BIN_PATH="${1:-$TMP_BIN_PATH}"
-  USRBINDIR="${2:-$USRBINDIR}"
-  FNM_MULTISHELL_PATH="${3:-$FNM_MULTISHELL_PATH}"
+__is_remote() {
+  [ -n "${SSH_CLIENT:-}" ] || [ -n "${SSH_TTY:-}" ] || [ -n "${SSH_CONNECTION:-}" ]
+}
+
+__has_display() {
+  [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Core helper functions
+__cmd_exists() { command -v "$1" >/dev/null 2>&1; }
+
+__is_running() {
+  local proc="$1"
+  case "$(__get_os)" in
+    mac) pgrep -x "$proc" >/dev/null 2>&1 ;;
+    windows) tasklist 2>/dev/null | grep -qi "$proc" ;;
+    *) pgrep -x "$proc" >/dev/null 2>&1 || pgrep -f "$proc" >/dev/null 2>&1 ;;
+  esac
+}
+
+__printf_color() {
+  local color="${2:-0}"
+  printf "\033[0;%sm%s\033[0m\n" "$color" "$1"
+}
+__printf_red() { __printf_color "$1" "31"; }
+__printf_green() { __printf_color "$1" "32"; }
+__printf_yellow() { __printf_color "$1" "33"; }
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Smart notifications
+__notifications() {
+  local title="$1" msg="$2"
+
+  # Remote/no display - just print to stderr
+  if __is_remote || ! __has_display; then
+    printf "[%s] %s\n" "$title" "$msg" >&2
+    return 0
+  fi
+
+  # GUI notifications based on OS
+  case "$(__get_os)" in
+    mac)
+      osascript -e "display notification \"$msg\" with title \"$title\"" 2>/dev/null && return 0
+      ;;
+    linux|bsd)
+      if __cmd_exists notify-send; then
+        notify-send "$title" "$msg" 2>/dev/null && return 0
+      fi
+      ;;
+    windows)
+      if __cmd_exists powershell.exe; then
+        powershell.exe -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('$msg', '$title')" 2>/dev/null && return 0
+      fi
+      ;;
+  esac
+
+  # Fallback
+  printf "[%s] %s\n" "$title" "$msg" >&2
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Generate user PATH
+__generate_user_path() {
+  local TMP_BIN_PATH="${1:-$TMP_BIN_PATH}"
+  local USRBINDIR="${2:-$USRBINDIR}"
+  local FNM_MULTISHELL_PATH="${3:-$FNM_MULTISHELL_PATH}"
+  local NEW_PATH=""
+  local SET_USR_PATH=""
+
   SET_USR_PATH="$(echo "$TMP_BIN_PATH" | tr ':' '\n' | grep -Fv '..' | grep "$HOME" | grep -vE "^\.|$USRBINDIR|$FNM_MULTISHELL_PATH" | sed 's|:.$||g' | grep -v '^$' | tr '\n' ':' | sed 's|:$||g')"
-  [ -n "$FNM_MULTISHELL_PATH" ] && NEW_PATH="$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:." || NEW_PATH="$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
-  [ -n "$NEW_PATH" ] || NEW_PATH="$PATH"
-  ;;
-system)
-  shift 1
-  NEW_PATH="/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"
-  ;;
-esac
 
-echo "$NEW_PATH"
+  if [ -n "$FNM_MULTISHELL_PATH" ]; then
+    NEW_PATH="$FNM_MULTISHELL_PATH/bin:$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+  else
+    NEW_PATH="$SET_USR_PATH:$USRBINDIR:$SYSBINDIR:."
+  fi
+
+  [ -n "$NEW_PATH" ] || NEW_PATH="$PATH"
+  echo "$NEW_PATH"
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Generate system PATH
+__generate_system_path() {
+  echo "/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Version and help
+__version() { echo "$PROG $VERSION"; }
+
+__help() {
+  cat <<EOF
+$PROG $VERSION - Fix PATH for fish shell
+
+Usage: $PROG [options] <mode> [args]
+
+Options:
+  -v, --version    Show version
+  -h, --help       Show this help
+
+Modes:
+  user [TMP_BIN_PATH] [USRBINDIR] [FNM_MULTISHELL_PATH]
+    Generate user PATH with home directories
+
+  system
+    Generate standard system PATH
+
+Output:
+  Prints the fixed PATH to stdout
+
+Examples:
+  $PROG user
+  $PROG user "\$PATH" "\$HOME/.local/bin"
+  $PROG system
+EOF
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Main function
+main() {
+  local NEW_PATH=""
+
+  # Parse options
+  case "${1:-}" in
+    -v|--version) __version; exit 0 ;;
+    -h|--help) __help; exit 0 ;;
+  esac
+
+  # Process mode
+  case "${1:-}" in
+    user)
+      shift 1
+      NEW_PATH="$(__generate_user_path "$1" "$2" "$3")"
+      ;;
+    system)
+      shift 1
+      NEW_PATH="$(__generate_system_path)"
+      ;;
+    *)
+      __printf_red "Error: Invalid mode specified"
+      echo "Usage: $PROG <user|system> [args]" >&2
+      exit 1
+      ;;
+  esac
+
+  echo "$NEW_PATH"
+  return 0
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Execute
+main "$@"
+exit $?
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# end
