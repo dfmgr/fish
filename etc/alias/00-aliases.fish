@@ -1,6 +1,5 @@
-#!/usr/bin/env sh
-# shellcheck shell=sh
-# shellcheck disable=SC2139
+#!/usr/bin/env fish
+# shellcheck shell=fish
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##@Version       : 202303022155-git
 # @Author        : Jason Hempstead
