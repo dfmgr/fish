@@ -25,5 +25,9 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function o -d open --wraps open
-    open $argv
+    if command -q open
+        open $argv
+    else if command -q xdg-open
+        xdg-open $argv
+    end
 end

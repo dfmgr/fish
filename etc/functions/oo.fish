@@ -25,5 +25,9 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function oo -d "open ."
-    open .
+    if command -q open
+        open .
+    else if command -q xdg-open
+        xdg-open .
+    end
 end
