@@ -29,4 +29,5 @@ function et -d "Edit TODOs"
     cd ~/.local/share/editors/plan
     vim TODO
     git cm 'Edit TODOs' -a
+    cd -
 end
