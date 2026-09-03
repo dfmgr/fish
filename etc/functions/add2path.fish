@@ -26,10 +26,10 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function add2path -d "Prepend the given dir to PATH if it exists and is not already in added"
     if test -d $argv[1]
-        set -l dir "$(realpath "$argv[1]")"
-        if not contains $argv[1] $PATH
+        set -l dir (realpath "$argv[1]")
+        if not contains $dir $PATH
             printf_cyan "Added $dir to path"
-            set -gx PATH "$argv[1]" $PATH
+            set -gx PATH "$dir" $PATH
             return 0
         else
             printf_yellow "$dir is already in the path"
