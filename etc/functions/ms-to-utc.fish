@@ -25,5 +25,5 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function ms-to-utc -d "convert epoch milliseconds to UTC"
-    date -ur (echo -n $argv[1] | sed -e 's/...$//')
+    date -u -d @(echo -n $argv[1] | sed -e 's/...$//')
 end
