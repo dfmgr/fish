@@ -1,12 +1,22 @@
 #!/usr/bin/env fish
 # shellcheck shell=fish
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Ensure oh-my-fish is installed
-# if test ! -d "$HOME/.local/share/fish/plugins/oh-my-fish"
-#     curl -LSs "https://get.oh-my.fish" >"$HOME/.config/fish/omf-install"
-#     fish "$HOME/.config/fish/omf-install --offline --path=$HOME/.local/share/fish/plugins/oh-my-fish --config=$HOME/.config/omf --noninteractive --yes"
-#     fish -c "$HOME/.config/fish/plugins.fish"
-# end
+##@Version           :  202304291602-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  config.fish --help
+# @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
+# @@Created          :  Saturday, Apr 29, 2023 16:02 EDT
+# @@File             :  config.fish
+# @@Description      :  Fish interactive-session entry point
+# @@Changelog        :  newScript
+# @@TODO             :  Refactor code
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/fish
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/fish/environment/00-global.fish"
     source "$HOME/.config/fish/environment/00-global.fish"
@@ -31,9 +41,20 @@ set -g -x MAVEN_OPTS "-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 # create dirs
 mkdir -p "$HOME/.local/log" "$HOME/.local/bin" "$HOME/.local/share/nodejs/nvm"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-if test -f "$HOME/.sudo"
+if not test -f "$HOME/.sudo"
     touch "$HOME/.sudo"
 end
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Completions {{{
+# defined before the sourcing loops below so completion files that call it
+# on source do not fail
+function make_completion --argument alias command
+    complete -c $alias -xa "(
+        set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
+        complete -C\"$command \$cmd\";
+    )"
+end
+# }}}
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # functions / profile / Abbreviations {{{
 # Optimized: Skip empty files with test -s
@@ -57,16 +78,11 @@ if test -d "$HOME/.config/fish/completions"
         test -s "$source_user_file"; and source "$source_user_file"
     end
 end
+if test -f "$HOME/.config/fish/z.fish"
+    source "$HOME/.config/fish/z.fish"
+end
 # }}}
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Completions {{{
-function make_completion --argument alias command
-    complete -c $alias -xa "(
-        set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
-        complete -C\"$command \$cmd\";
-    )"
-end
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 complete -c s -w ssh
 complete -c cw -w which
 complete -c ew -w which
@@ -79,10 +95,6 @@ complete -c gw -w which
 function jesus_fucking_christ_bind_the_fucking_keys_fish
     bind \cn accept-autosuggestion
     bind \cw backward-kill-word
-end
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-function fish_user_keybindings
-    jesus_fucking_christ_bind_the_fucking_keys_fish
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function fish_user_key_bindings
@@ -105,7 +117,7 @@ set -g -x LESS_TERMCAP_ue (printf '\e[0m')
 # Begin underline - green (works on both backgrounds)
 set -g -x LESS_TERMCAP_us (printf '\e[04;32m')
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-set -x VIRTUAL_ENV_DISABLE_PROMPT 1
+set -g -x VIRTUAL_ENV_DISABLE_PROMPT 1
 set -g theme_display_git yes
 set -g theme_display_git_dirty yes
 set -g theme_display_git_untracked yes
@@ -139,7 +151,9 @@ set -g theme_title_use_abbreviated_path no
 set -g theme_date_format "+%H:%M"
 set -g theme_project_dir_length 0
 set -g theme_newline_prompt ' ><((°>)) 🐧 '
-set -U SXHKD_SHELL sh
+if not set -q SXHKD_SHELL
+    set -U SXHKD_SHELL sh
+end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/local/fish.local"
     source "$HOME/.config/local/fish.local"
@@ -149,8 +163,8 @@ if test -f "$HOME/.config/local/fish.servers.local"
     source "$HOME/.config/local/fish.servers.local"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-if test -f "$HOME/.config/local/fish.(hostname -s).local"
-    source "$HOME/.config/local/fish.(hostname -s).local"
+if test -f "$HOME/.config/local/fish."(hostname -s)".local"
+    source "$HOME/.config/local/fish."(hostname -s)".local"
 end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.local/share/fish/plugins/oh-my-fish/init.fish"
