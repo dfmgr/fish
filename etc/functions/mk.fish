@@ -25,5 +25,5 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function mk -d 'Make a directory and cd into it'
-    mkdir -p $argv && cd $argv
+    mkdir -p $argv && cd $argv[1]
 end
