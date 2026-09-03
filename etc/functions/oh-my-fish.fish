@@ -27,8 +27,10 @@
 function oh-my-fish -d 'Oh my fish setup'
     if am_i_online
         if test ! -d "$HOME/.local/share/fish/plugins/oh-my-fish"
-            curl -LSs "https://get.oh-my.fish" >"$HOME/.config/fish/omf-install"
-            fish "$HOME/.config/fish/omf-install" --path="$HOME/.local/share/fish/plugins/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
+            set -l omf_installer (command mktemp)
+            curl -LSs "https://get.oh-my.fish" >"$omf_installer"
+            fish "$omf_installer" --path="$HOME/.local/share/fish/plugins/oh-my-fish" --config="$HOME/.config/omf" --noninteractive --yes
+            command rm -f "$omf_installer"
             fish -c "$HOME/.config/fish/plugins.fish"
         end
     end
