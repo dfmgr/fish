@@ -25,5 +25,5 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function hl -d "Highlighted Less"
-    less -R
+    less -R $argv
 end
