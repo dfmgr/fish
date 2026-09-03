@@ -168,32 +168,45 @@ anything non-trivial. DO NOT:
 
 ### 2.2 File headers
 
-Every `.fish` script in this repo starts with a standardized header. New
-scripts MUST follow the same template:
+Every `.fish` script in this repo starts with a standardized header. All
+scripts (new and existing) MUST follow this template:
 
 ```fish
 #!/usr/bin/env fish
-# shellcheck shell=fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : YYYYMMDDHHMM-git
-# @Author        : Jason Hempstead
-# @Contact       : jason@casjaysdev.pro
-# @License       : LICENSE.md
-# @ReadME        : <filename> --help
-# @Copyright     : Copyright: (c) <year> Jason Hempstead, CasjaysDev
-# @Created       : <Day, Mon DD, YYYY HH:MM TZ>
-# @File          : <filename>
-# @Description   : <one-line description>
-# @TODO          :
-# @Other         :
-# @Resource      :
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  %Y%m%d%H%M-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  {scriptname --help | README.md}
+# @@Copyright        :  Copyright: (c) {year} Jason Hempstead, Casjays Developments
+# @@Created          :  {Weekday, Month DD, YYYY HH:MM TZ}
+# @@File             :  {file_name}
+# @@Description      :  {short one-sentence description}
+# @@Changelog        :  {short one-sentence changelog message}
+# @@TODO             :  {short list of TODOs}
+# @@Other            :  {anything that doesn't fit another field}
+# @@Resource         :  {short list of resources, e.g. Stack Overflow links}
+# @@Terminal App     :  {yes|no}
+# @@sudo/root        :  {yes|no}
+# @@Template         :  {template name, or shell/fish if no template}
+# - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
 
-Note: `# shellcheck shell=fish` is preserved from the existing codebase for
-editor hints, but `shellcheck` itself does NOT parse fish — the directive
-has no practical effect. Do not remove it unless you are also doing a
-repo-wide cleanup.
+- **All scripts in this repo are licensed under WTFPL** — always
+  `# @@License          :  WTFPL`; never MIT, Apache, or another license,
+  except for already-flagged vendored/third-party files (see
+  `TODO.AI.md`, e.g. `etc/functions/fisher.fish`), which keep their
+  original license header untouched.
+- `# shellcheck shell=fish` and `# shellcheck disable=...` lines are
+  **omitted entirely** for fish files — shellcheck does not parse fish.
+- `##@Version` uses double `#`; every other field uses single `#` with a
+  double `@@` prefix.
+- `VERSION="YYYYMMDDHHMM-git"` is the literal placeholder for new scripts.
+  Never revert an already-stamped real timestamp back to the placeholder.
+  When editing an existing script, update both the `##@Version` header line
+  and the first `VERSION`/`set -g VERSION` assignment after the header to
+  the current timestamp (`date +'%Y%m%d%H%M-git'`).
 
 The top-level `install.sh` uses an extended `@@`-prefixed variant with a
 bash shebang (it's the installer, not a fish script) — match that template
