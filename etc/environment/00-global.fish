@@ -18,7 +18,7 @@
 # @@sudo/root        :  no
 # @@Template         :  shell/fish
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-set -gx SHELL fish
+set -gx SHELL (status fish-path)
 set -gx USRBINDIR "$HOME/.local/bin"
 set -gx SYSBINDIR "/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"
 set -gx PATH "$USRBINDIR:$SYSBINDIR"
@@ -123,7 +123,7 @@ set -gx ON_ICYAN '\e[0;106m'
 set -gx ON_IWHITE '\e[0;107m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx DISPLAY_LOW_DENSITY $DISPLAY
-set -gx RESOLUTION (type -q xrand && xrandr --current 2>/dev/null | grep '\*' | sort -u | awk '{print $1}'||true)
+set -gx RESOLUTION (type -q xrandr && xrandr --current 2>/dev/null | grep '\*' | sort -u | awk '{print $1}'||true)
 set -gx XKBOPTIONS "terminate:ctrl_alt_bksp"
 set -gx CACHE_DIRECTORY "$HOME/.cache"
 set -gx STATE_DIRECTORY "$HOME/.local/lib"
@@ -140,7 +140,7 @@ set -gx TMP_BIN_PATH "$HOME/.emacs.d/bin:$TMP_BIN_PATH"
 set -gx TMP_BIN_PATH "$HOME/.local/share/emacs/plugins/doom-emacs/bin:$TMP_BIN_PATH"
 set -gx MPDSERVER "$HOSTNAME"
 set -gx NOTES_DIRECTORY "$HOME/.local/share/editors/notes"
-set -gx NVIM_LISTEN_ADDRESS "$RUNTIME_DIRECTORY/nvim.{$USER}.sock"
+set -gx NVIM_LISTEN_ADDRESS "$RUNTIME_DIRECTORY/nvim.$USER.sock"
 set -gx LUAVER_HOME "$HOME/.local/share/misc/plugins/luaver"
 set -gx LUAROCKS_PREFIX "$HOME/.local/share/lua/luarocks"
 set -gx LUAROCKS_BIN "$LUAROCKS_PREFIX/bin"
@@ -202,7 +202,9 @@ set -gx WALLPAPER_DIR "$HOME/.local/share/wallpapers"
 set -gx THEME_DIR "$HOME/.local/share/themes"
 set -gx ICON_DIR "$HOME/.local/share/icons"
 set -gx FONT_DIR "$HOME/.local/share/fonts"
-set -gx TERM screen-256color
+if set -q TMUX; or set -q STY
+    set -gx TERM screen-256color
+end
 set -gx DEFAULT_LOG apps
 set -gx LOGDIR "$LOGS_DIRECTORY"
 set -gx DEFAULT_LOG_DIR "$LOGS_DIRECTORY"
@@ -227,8 +229,11 @@ type -q fnm && fnm env --use-on-cd --shell fish | source >/dev/null || true
 type -q fnm && fnm completions --shell fish | source >/dev/null || true
 type -q podman && set -gx KIND_EXPERIMENTAL_PROVIDER podman || set -gx KIND_EXPERIMENTAL_PROVIDER docker || true
 type -q fixFishPath && set -gx SET_USR_PATH (fixFishPath user "$TMP_BIN_PATH" "$USRBINDIR" "$FNM_MULTISHELL_PATH") || true
-[ -f "$rvm_path/scripts/rvm" ] && . "$rvm_path/scripts/rvm"
-[ -f "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
+# rvm ships bash scripts; fish can only load them via bass
+if type -q bass
+    [ -f "$rvm_path/scripts/rvm" ] && bass source "$rvm_path/scripts/rvm"
+    [ -f "$rvm_path/scripts/completion" ] && bass source "$rvm_path/scripts/completion"
+end
 [ -f "/run/docker/docker.sock" ] && set -gx DOCKER_SOCK "unix:///run/docker/docker.sock" || set -gx DOCKER_SOCK "unix:///run/docker.sock"
-set -gx PATH "$SET_USR_PATH:."
-set -e -Ug SET_PATH SET_TMP_PATH TMP_BIN_PATH
+test -n "$SET_USR_PATH" && set -gx PATH "$SET_USR_PATH"
+set -e SET_PATH SET_TMP_PATH TMP_BIN_PATH
