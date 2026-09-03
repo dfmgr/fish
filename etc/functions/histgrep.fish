@@ -25,5 +25,9 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function histgrep -d "grep shell history because my brain is garbage"
-    history | grep $argv | tac
+    if command -q tac
+        history | grep $argv | tac
+    else
+        history | grep $argv | tail -r
+    end
 end
