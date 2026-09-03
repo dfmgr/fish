@@ -25,5 +25,5 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function pbc -d pbcopy
-    clipboard
+    pbcopy
 end

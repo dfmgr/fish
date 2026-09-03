@@ -25,5 +25,5 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function psg -d "Grep for a running process, returning its PID and full string"
-    ps auxww | grep -i --color=always $argv | grep -v grep | collapse | cut -f 2,11-
+    ps auxww | grep -i --color=always $argv | grep -v grep | tr -s ' ' | cut -d ' ' -f 2,11-
 end

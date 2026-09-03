@@ -25,5 +25,12 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function serve-this -d "Launch a webserver on 8000 serving the cwd"
-    run_server $argv
+    if command -q python3
+        python3 -m http.server $argv
+    else if command -q python
+        python -m SimpleHTTPServer $argv
+    else
+        printf "serve-this: python not found\n" >&2
+        return 1
+    end
 end

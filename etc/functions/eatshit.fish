@@ -26,8 +26,8 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function eatshit -d ''
     if test "$argv[1]" = -u
-        echo -n 'http://bit.ly/eat-shit' | clipboard
+        echo -n 'http://bit.ly/eat-shit' | pbcopy
     else
-        echo -n '≣:D ⊃-' | clipboard
+        echo -n '≣:D ⊃-' | pbcopy
     end
 end
