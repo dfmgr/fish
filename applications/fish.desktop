@@ -4,5 +4,5 @@ Type=Application
 Terminal=true
 Exec=fish
 Name=fish
-Icon=fish
+Icon=utilities-terminal
 Categories=ConsoleOnly;System;
