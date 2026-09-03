@@ -24,9 +24,6 @@
 # shellcheck disable=SC2155
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-function cmd_exists -d 'Check if command exists'
-    type $argv
-end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Icons
 set -g ICON_INFO "[ ℹ️ ]"
@@ -37,7 +34,8 @@ set -g ICON_QUESTION "[ ❓ ]"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Optimized: Use bright ANSI codes for better visibility on both backgrounds
 function printf_color -d 'colorize output'
-    test $argv[2] && set -l DEFAULT_COLOR $argv[2]
+    set -l DEFAULT_COLOR 7
+    test -n "$argv[2]" && set DEFAULT_COLOR $argv[2]
     printf "%b\e[9%sm%s\e[0m\n" "" "$DEFAULT_COLOR" "$argv[1]"
 end
 
@@ -90,13 +88,13 @@ function printf_question
 end
 
 function printf_error_stream
-    while read -r line
-        do printf_error "↳ ERROR: $line"
+    while read line
+        printf_error "↳ ERROR: $line"
     end
 end
 
 function printf_execute_success
-    printf_color "$ICON_ERROR $argv[1] " 2
+    printf_color "$ICON_GOOD $argv[1] " 2
 end
 
 function printf_execute_error
@@ -104,13 +102,14 @@ function printf_execute_error
 end
 
 function printf_execute_error_stream
-    while read -r line
-        do printf_execute_error "↳ ERROR: $line"
+    while read line
+        printf_execute_error "↳ ERROR: $line"
     end
 end
 
 function printf_exit
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 1
+    set -l color 1
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     set -l msg "$argv"
     printf_color "$msg" "$color"
     echo ""
@@ -118,7 +117,8 @@ function printf_exit
 end
 
 function printf_help
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 4
+    set -l color 4
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     set -l msg "$argv"
     echo ""
     printf_color "$msg\n" "$color"
@@ -127,33 +127,35 @@ function printf_help
 end
 
 function printf_pause
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 5
+    set -l color 5
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     set -l msg "$argv"
     printf_color "$msg " "$color"
-    read -r -n 1 -s
+    read -n 1 -s
     printf "\n"
 end
 
 function printf_custom
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 5
+    set -l color 5
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     set -l msg "$argv"
     printf_color "$msg" "$color"
     echo ""
 end
 
 function printf_read
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 6
+    set -l color 6
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     while read line
-        do
         printf_color "$line" "$color"
     end
     printf "\n"
 end
 
 function printf_readline
-    test -n "$argv[1]" && test -z "$argv[1]//[0-9]/" && set -l color "$argv[1..-1]" || set -l color 6
+    set -l color 6
+    test -n "$argv[1]" && string match -qr '^[0-9]+$' -- "$argv[1]" && set color $argv[1..-1]
     while read line
-        do
         printf_color "$line\n" "$color"
     end
 end
