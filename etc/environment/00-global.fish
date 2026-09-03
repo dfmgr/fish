@@ -1,7 +1,6 @@
 #!/usr/bin/env fish
-# shellcheck shell=fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version           :  202304291602-git
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
 # @@Author           :  Jason Hempstead
 # @@Contact          :  git-admin@casjaysdev.pro
 # @@License          :  WTFPL
@@ -10,14 +9,14 @@
 # @@Created          :  Saturday, Apr 29, 2023 16:02 EDT
 # @@File             :  00-global.fish
 # @@Description      :  Fish environment settings
-# @@Changelog        :  newScript
+# @@Changelog        :  Standardized header block to the new double-@ template
 # @@TODO             :  Refactor code
-# @@Other            :
-# @@Resource         :
+# @@Other            :  
+# @@Resource         :  
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  shell/fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
 set -gx SHELL (status fish-path)
 set -gx USRBINDIR "$HOME/.local/bin"
 set -gx SYSBINDIR "/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin:/usr/share/games:/usr/games"

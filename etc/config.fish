@@ -1,7 +1,6 @@
 #!/usr/bin/env fish
-# shellcheck shell=fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version           :  202304291602-git
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
 # @@Author           :  Jason Hempstead
 # @@Contact          :  git-admin@casjaysdev.pro
 # @@License          :  WTFPL
@@ -10,14 +9,14 @@
 # @@Created          :  Saturday, Apr 29, 2023 16:02 EDT
 # @@File             :  config.fish
 # @@Description      :  Fish interactive-session entry point
-# @@Changelog        :  newScript
+# @@Changelog        :  Standardized header block to the new double-@ template
 # @@TODO             :  Refactor code
-# @@Other            :
-# @@Resource         :
+# @@Other            :  
+# @@Resource         :  
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  shell/fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
 if test -f "$HOME/.config/fish/environment/00-global.fish"
     source "$HOME/.config/fish/environment/00-global.fish"
 end

@@ -1,4 +1,22 @@
 #!/usr/bin/env fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  README.md
+# @@Copyright        :  Copyright: (c) 2026 Jason Hempstead, Casjays Developments
+# @@Created          :  Thursday, September 03, 2026 15:00 EDT
+# @@File             :  plugins.fish
+# @@Description      :  Install oh-my-fish plugin manager and configured plugins
+# @@Changelog        :  Standardized header block to the new double-@ template
+# @@TODO             :  Refactor code
+# @@Other            :  
+# @@Resource         :  
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
 # Ensure oh-my-fish is installed
 if am_i_online
     # if test ! -d "$HOME/.local/share/fish/plugins/oh-my-fish"

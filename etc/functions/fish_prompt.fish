@@ -1,22 +1,22 @@
 #!/usr/bin/env fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version           :  202412091517-git
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
 # @@Author           :  Jason Hempstead
-# @@Contact          :  jason@casjaysdev.pro
+# @@Contact          :  git-admin@casjaysdev.pro
 # @@License          :  WTFPL
 # @@ReadME           :  fish_prompt.fish --help
 # @@Copyright        :  Copyright: (c) 2024 Jason Hempstead, Casjays Developments
 # @@Created          :  Monday, Dec 09, 2024 15:17 EST
 # @@File             :  fish_prompt.fish
 # @@Description      :  Custom prompt matching bash powerline style
-# @@Changelog        :  newScript
+# @@Changelog        :  Standardized header block to the new double-@ template
 # @@TODO             :  Refactor code
-# @@Other            :
-# @@Resource         :
+# @@Other            :  
+# @@Resource         :  
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  shell/fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
 
 function fish_prompt --description 'Custom powerline-style prompt matching bash'
     # Save last exit status

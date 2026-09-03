@@ -1,3 +1,22 @@
+#!/usr/bin/env fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  README.md
+# @@Copyright        :  Copyright: (c) 2026 Jason Hempstead, Casjays Developments
+# @@Created          :  Thursday, September 03, 2026 15:00 EDT
+# @@File             :  z.fish
+# @@Description      :  Maintain and jump to frecently-used directories
+# @@Changelog        :  Standardized header block to the new double-@ template
+# @@TODO             :  Refactor code
+# @@Other            :  
+# @@Resource         :  
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
 # maintains a jump-list of the directories you actually use
 #
 # INSTALL:

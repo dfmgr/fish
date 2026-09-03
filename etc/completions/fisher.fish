@@ -1,19 +1,22 @@
 #!/usr/bin/env fish
-# shellcheck shell=fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : 202609031400-git
-# @Author        : Jason Hempstead
-# @Contact       : jason@casjaysdev.pro
-# @License       : LICENSE.md
-# @ReadME        : fisher --help
-# @Copyright     : Copyright: (c) 2026 Jason Hempstead, CasjaysDev
-# @Created       : Thursday, Sep 03, 2026 14:00 EDT
-# @File          : fisher.fish
-# @Description   : completions for the fisher plugin manager
-# @TODO          :
-# @Other         :
-# @Resource      :
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  fisher --help
+# @@Copyright        :  Copyright: (c) 2026 Jason Hempstead, Casjays Developments
+# @@Created          :  Thursday, Sep 03, 2026 14:00 EDT
+# @@File             :  fisher.fish
+# @@Description      :  Completions for the fisher plugin manager
+# @@Changelog        :  Standardized header block to the new double-@ template
+# @@TODO             :  Refactor code
+# @@Other            :  
+# @@Resource         :  
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
 complete --command fisher --exclusive --long help --description "Print help"
 complete --command fisher --exclusive --long version --description "Print version"
 complete --command fisher --exclusive --condition __fish_use_subcommand --arguments install --description "Install plugins"

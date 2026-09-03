@@ -1,19 +1,22 @@
 #!/usr/bin/env fish
-# shellcheck shell=fish
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : 202303022155-git
-# @Author        : Jason Hempstead
-# @Contact       : jason@casjaysdev.pro
-# @License       : LICENSE.md
-# @ReadME        : README.md
-# @Copyright     : Copyright: (c) 2023 Jason Hempstead, CasjaysDev
-# @Created       : Thursday, Mar 02, 2023 21:54 EDT
-# @File          : 00-default.lin
-# @Description   :
-# @TODO          :
-# @Other         :
-# @Resource      :
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version           :  202609031500-git
+# @@Author           :  Jason Hempstead
+# @@Contact          :  git-admin@casjaysdev.pro
+# @@License          :  WTFPL
+# @@ReadME           :  README.md
+# @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
+# @@Created          :  Thursday, Mar 02, 2023 21:54 EDT
+# @@File             :  00-aliases.fish
+# @@Description      :  System-wide fish shell aliases
+# @@Changelog        :  Standardized header block to the new double-@ template
+# @@TODO             :  Refactor code
+# @@Other            :  
+# @@Resource         :  
+# @@Terminal App     :  no
+# @@sudo/root        :  yes
+# @@Template         :  shell/fish
+# - - - - - - - - - - - - - - - - - - - - - - - -
 # System Aliases
 alias q='exit'
 alias :q='exit'
