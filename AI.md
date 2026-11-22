@@ -399,7 +399,9 @@ See 2.9 above for the `config.fish` step-by-step. Summary:
   3. `https://github.com/dfmgr/installer/raw/main/functions/mgr-installers.bash`
      (fetched to `/tmp` if online).
 - Requires `curl`, `wget`, `git` on PATH.
-- Supports `--debug`, `--raw`.
+- Supports `--debug`, `--raw` / `--no-color`, and `--color auto|yes|no`.
+- `NO_COLOR` disables color; automatic color requires a terminal, and `--color yes` forces it.
+- Curl requests default to a 10-second connect timeout and a 60-second total timeout unless the call sets its own deadline.
 - Traps `ERR EXIT SIGINT` → `trap_exit`.
 
 ### 3.5 Target platforms
